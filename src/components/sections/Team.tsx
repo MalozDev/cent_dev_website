@@ -38,7 +38,7 @@ const Team = () => {
                 >
                   {/* Image or Placeholder */}
                   <img
-                    src={member.image}
+                    src={`${import.meta.env.BASE_URL}${member.image.replace(/^\//, '')}`}
                     alt={member.name}
                     className="absolute inset-0 w-full h-full object-cover object-[80%_35%] group-hover:scale-110 transition-transform duration-500"
                     onError={(e) => {
