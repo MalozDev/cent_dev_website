@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -10,6 +10,7 @@ import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import HomePage from "./pages/HomePage";
 import PortfolioPage from "./pages/PortfolioPage";
+import LoadingSpinner from "./components/LoadingSpinner";
 import { COMPANY_INFO } from "./data/constants";
 import "./index.css";
 
@@ -17,6 +18,7 @@ const AnimatedRoutes = () => {
   const location = useLocation();
   const isInitialMount = useRef(true);
   const prevLocation = useRef(location.pathname);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     // Always ensure we're at top when route changes (but allow scrollTo state to override)
@@ -31,54 +33,83 @@ const AnimatedRoutes = () => {
     prevLocation.current === "/portfolio" && location.pathname === "/";
 
   useEffect(() => {
+    // Show loading spinner on route change
+    if (prevLocation.current !== location.pathname && !isInitialMount.current) {
+      setIsLoading(true);
+
+      // Hide spinner after transition completes
+      const timer = setTimeout(() => {
+        setIsLoading(false);
+      }, 600); // Match with transition duration
+
+      return () => clearTimeout(timer);
+    }
+
     prevLocation.current = location.pathname;
   }, [location.pathname]);
 
   return (
-    <AnimatePresence mode="popLayout">
-      <Routes location={location} key={location.pathname}>
-        <Route
-          path="/"
-          element={
-            <motion.div
-              initial={
-                isComingFromPortfolio
-                  ? { opacity: 0, scale: 0.9, filter: "blur(10px)" }
-                  : { opacity: 0, x: -50 }
-              }
-              animate={{ opacity: 1, scale: 1, x: 0, filter: "blur(0px)" }}
-              exit={{ opacity: 0, x: 50 }}
-              transition={
-                isComingFromPortfolio
-                  ? { duration: 1.2, ease: [0.22, 1, 0.36, 1] }
-                  : { duration: 0.4, ease: [0.4, 0, 0.2, 1] }
-              }
-            >
-              <HomePage />
-            </motion.div>
-          }
-        />
-        <Route
-          path="/portfolio"
-          element={
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 50 }}
-              transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-            >
-              <PortfolioPage />
-            </motion.div>
-          }
-        />
-      </Routes>
-    </AnimatePresence>
+    <>
+      {/* Loading Spinner */}
+      <AnimatePresence>{isLoading && <LoadingSpinner />}</AnimatePresence>
+
+      {/* Page Routes */}
+      <AnimatePresence mode="popLayout">
+        <Routes location={location} key={location.pathname}>
+          <Route
+            path="/"
+            element={
+              <motion.div
+                initial={
+                  isComingFromPortfolio
+                    ? { opacity: 0, scale: 0.9, filter: "blur(10px)" }
+                    : { opacity: 0, x: -50 }
+                }
+                animate={{ opacity: 1, scale: 1, x: 0, filter: "blur(0px)" }}
+                exit={{ opacity: 0, x: 50 }}
+                transition={
+                  isComingFromPortfolio
+                    ? { duration: 1.2, ease: [0.22, 1, 0.36, 1] }
+                    : { duration: 0.4, ease: [0.4, 0, 0.2, 1] }
+                }
+              >
+                <HomePage />
+              </motion.div>
+            }
+          />
+          <Route
+            path="/portfolio"
+            element={
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 50 }}
+                transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+              >
+                <PortfolioPage />
+              </motion.div>
+            }
+          />
+        </Routes>
+      </AnimatePresence>
+    </>
   );
 };
 
 function App() {
   const glowRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number | undefined>(undefined);
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
+
+  // Show initial loading spinner for minimum duration
+  useEffect(() => {
+    const minLoadTime = 2000; // 2 seconds minimum
+    const timer = setTimeout(() => {
+      setIsInitialLoading(false);
+    }, minLoadTime);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -136,6 +167,11 @@ function App() {
 
   return (
     <Router basename={import.meta.env.BASE_URL}>
+      {/* Initial Loading Spinner */}
+      <AnimatePresence>
+        {isInitialLoading && <LoadingSpinner />}
+      </AnimatePresence>
+
       <div className="min-h-screen bg-gray-950 text-white overflow-hidden">
         {/* Animated Background */}
         <div className="fixed inset-0 z-0 pointer-events-none">
