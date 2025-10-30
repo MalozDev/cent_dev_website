@@ -25,7 +25,6 @@ const AnimatedRoutes = () => {
     if (!isInitialMount.current && !location.state) {
       window.scrollTo({ top: 0, behavior: "instant" });
     }
-    isInitialMount.current = false;
   }, [location.pathname, location.state]);
 
   // Detect if coming from Portfolio to Home
@@ -33,16 +32,21 @@ const AnimatedRoutes = () => {
     prevLocation.current === "/portfolio" && location.pathname === "/";
 
   useEffect(() => {
-    // Show loading spinner on route change
-    if (prevLocation.current !== location.pathname && !isInitialMount.current) {
-      setIsLoading(true);
+    // Show loading spinner on route change (but not on initial mount)
+    if (prevLocation.current !== location.pathname) {
+      if (!isInitialMount.current) {
+        setIsLoading(true);
 
-      // Hide spinner after transition completes
-      const timer = setTimeout(() => {
-        setIsLoading(false);
-      }, 600); // Match with transition duration
+        // Hide spinner after a visible duration
+        const timer = setTimeout(() => {
+          setIsLoading(false);
+        }, 1500); // Longer duration to be visible
 
-      return () => clearTimeout(timer);
+        return () => clearTimeout(timer);
+      } else {
+        // After first render, mark as no longer initial mount
+        isInitialMount.current = false;
+      }
     }
 
     prevLocation.current = location.pathname;

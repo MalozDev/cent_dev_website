@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import cendevLogo from "/cendev.svg";
 
 interface LoadingSpinnerProps {
   size?: "sm" | "md" | "lg" | "xl";
@@ -24,18 +25,18 @@ const LoadingSpinner = ({
       exit={{ opacity: 0, scale: 0.8 }}
       transition={{ duration: 0.3 }}
     >
-      {/* Spinning Logo */}
+      {/* Spinning Logo - Fast spin then stop */}
       <motion.img
-        src="/cendev.svg"
+        src={cendevLogo}
         alt="Loading..."
         className="w-full h-full"
         animate={{
-          rotate: 360,
+          rotate: [0, 1080], // Spin 3 full rotations (1080 degrees)
         }}
         transition={{
-          duration: 2,
-          repeat: Infinity,
-          ease: "linear",
+          duration: 1.5,
+          ease: [0.43, 0.13, 0.23, 0.96], // Deceleration curve
+          times: [0, 1],
         }}
       />
 
@@ -43,12 +44,11 @@ const LoadingSpinner = ({
       <motion.div
         className="absolute inset-0 bg-emerald-500/20 rounded-full blur-xl"
         animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.5, 0.8, 0.5],
+          scale: [1, 1.3, 1],
+          opacity: [0.3, 0.8, 0.3],
         }}
         transition={{
-          duration: 2,
-          repeat: Infinity,
+          duration: 1.5,
           ease: "easeInOut",
         }}
       />
