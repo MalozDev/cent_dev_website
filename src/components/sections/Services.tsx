@@ -1,6 +1,56 @@
 import { motion } from "framer-motion";
-import { Zap, ChevronRight } from "lucide-react";
+import { Zap } from "lucide-react";
 import { SERVICES } from "../../data/constants";
+import { useMouseGlow } from "../../hooks/useMouseGlow";
+
+const ServiceCard = ({
+  service,
+  idx,
+}: {
+  service: (typeof SERVICES)[0];
+  idx: number;
+}) => {
+  const Icon = service.icon;
+  const { cardRef, mousePosition, isHovered } = useMouseGlow();
+
+  return (
+    <motion.div
+      ref={cardRef}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.5, delay: idx * 0.1 }}
+      className="group relative"
+    >
+      {/* Border glow that follows mouse */}
+      <div
+        className="absolute inset-0 rounded-xl sm:rounded-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-200 ease-out"
+        style={{
+          background: isHovered
+            ? `radial-gradient(200px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(16, 185, 129, 0.6), transparent 100%)`
+            : "transparent",
+          WebkitMaskImage:
+            "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+          WebkitMaskComposite: "xor",
+          maskComposite: "exclude",
+          padding: "1px",
+        }}
+      />
+
+      <div className="relative h-full bg-gradient-to-br from-gray-900/50 to-gray-900/30 backdrop-blur-sm border border-gray-800 rounded-xl sm:rounded-2xl p-5 sm:p-6 transition-colors duration-300">
+        <div
+          className={`w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br ${service.color} rounded-lg sm:rounded-xl flex items-center justify-center mb-3 sm:mb-4`}
+        >
+          <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-gray-950" />
+        </div>
+        <h3 className="text-lg sm:text-xl font-bold mb-2 transition-colors duration-300 group-hover:text-emerald-400">
+          {service.title}
+        </h3>
+        <p className="text-gray-500 text-sm">{service.desc}</p>
+      </div>
+    </motion.div>
+  );
+};
 
 const Services = () => {
   return (
@@ -28,37 +78,9 @@ const Services = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-          {SERVICES.map((service, idx) => {
-            const Icon = service.icon;
-            return (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                whileHover={{ y: -8 }}
-                className="group relative"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-teal-500/10 rounded-xl sm:rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="relative h-full bg-gradient-to-br from-gray-900/50 to-gray-900/30 backdrop-blur-sm border border-gray-800 group-hover:border-emerald-500/50 rounded-xl sm:rounded-2xl p-5 sm:p-6 transition-all duration-300">
-                  <div
-                    className={`w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br ${service.color} rounded-lg sm:rounded-xl flex items-center justify-center mb-3 sm:mb-4 transition-transform duration-300 group-hover:scale-110`}
-                  >
-                    <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-gray-950" />
-                  </div>
-                  <h3 className="text-lg sm:text-xl font-bold mb-2 transition-colors duration-300 group-hover:text-emerald-400">
-                    {service.title}
-                  </h3>
-                  <p className="text-gray-500 text-sm">{service.desc}</p>
-                  <div className="mt-3 sm:mt-4 flex items-center text-emerald-400 text-xs sm:text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <span>Learn more</span>
-                    <ChevronRight className="w-4 h-4 ml-1" />
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
+          {SERVICES.map((service, idx) => (
+            <ServiceCard key={idx} service={service} idx={idx} />
+          ))}
         </div>
       </div>
     </section>

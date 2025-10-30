@@ -1,8 +1,12 @@
 @import "tailwindcss";
 
+/* PWA & Mobile Optimizations */
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  /* Support for safe areas on devices with notches */
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 body {
@@ -13,6 +17,38 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   width: 100%;
+  /* Prevent pull-to-refresh on PWA */
+  overscroll-behavior-y: contain;
+}
+
+/* Ensure proper line-height for headings to show descenders */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.3;
+  padding-bottom: 0.05em;
+}
+
+/* Specific fix for large headings */
+.text-3xl,
+.text-4xl,
+.text-5xl,
+.text-6xl,
+.text-7xl,
+.text-8xl {
+  line-height: 1.2;
+  padding-bottom: 0.1em;
+}
+
+/* Prevent text clipping on backgrounds with gradients */
+.bg-clip-text {
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  padding-bottom: 0.1em;
+  display: inline-block;
 }
 
 /* Improve touch interactions on mobile */
@@ -57,16 +93,17 @@ body {
 .shine-wrapper {
   position: relative;
   display: inline-block;
-  overflow: hidden;
+  overflow: visible;
+  padding-bottom: 0.15em;
 }
 
 .shine-wrapper::after {
   content: "";
   position: absolute;
-  top: 0;
+  top: -5%;
   left: -100%;
   width: 100%;
-  height: 100%;
+  height: 110%;
   background: linear-gradient(
     90deg,
     transparent 0%,
@@ -76,6 +113,7 @@ body {
   opacity: 0;
   pointer-events: none;
   will-change: transform, opacity;
+  clip-path: inset(0);
 }
 
 /* Trigger shine only once on page load/view */

@@ -17,12 +17,31 @@ const Header = ({ scrollToSection, handleWhatsAppClick }: HeaderProps) => {
 
   const handleNavClick = (item: string) => {
     if (item === "Portfolio") {
-      navigate("/portfolio");
+      // Scroll to top first, then navigate
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      setTimeout(() => {
+        navigate("/portfolio");
+      }, 600);
+    } else if (item === "Home") {
+      if (location.pathname !== "/") {
+        // Coming from another page, scroll current page to top first
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        setTimeout(() => {
+          navigate("/");
+        }, 600);
+      } else {
+        // Already on home page, scroll to hero
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
     } else if (location.pathname !== "/") {
-      // If not on home page, navigate home then scroll
-      navigate("/");
-      setTimeout(() => scrollToSection(item.toLowerCase()), 100);
+      // If not on home page, scroll to top first, then navigate with scrollTo state
+      const sectionId = item.toLowerCase();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      setTimeout(() => {
+        navigate("/", { state: { scrollTo: sectionId } });
+      }, 800);
     } else {
+      // Already on home page, just scroll to section
       scrollToSection(item.toLowerCase());
     }
   };
@@ -115,7 +134,7 @@ const Header = ({ scrollToSection, handleWhatsAppClick }: HeaderProps) => {
             </div>
             <div>
               <span className="text-xl sm:text-2xl font-black bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
-                CentDev's
+                CENDEV
               </span>
               <div className="text-[9px] sm:text-xs text-gray-500 font-mono font-medium">
                 <span className="text-emerald-500/60">&lt;</span>Centurion
@@ -130,17 +149,18 @@ const Header = ({ scrollToSection, handleWhatsAppClick }: HeaderProps) => {
                 <button
                   key={item}
                   onClick={() => handleNavClick(item)}
-                  className={`px-3 lg:px-4 py-2 text-sm lg:text-base transition-all relative group ${
+                  className={`px-3 lg:px-4 py-2.5 text-sm lg:text-base transition-all relative group ${
                     isActive(item)
                       ? "text-emerald-400"
                       : "text-gray-400 hover:text-emerald-400"
                   }`}
+                  style={{ lineHeight: "1.5" }}
                 >
                   <span className="relative z-10">{item}</span>
                   <div className="absolute inset-0 bg-emerald-500/0 group-hover:bg-emerald-500/10 rounded-lg transition"></div>
                   {/* Active underline */}
                   {isActive(item) && (
-                    <div className="absolute bottom-0 left-3 right-3 h-0.5 bg-emerald-400 rounded-full"></div>
+                    <div className="absolute bottom-0.5 left-3 right-3 h-0.5 bg-emerald-400 rounded-full"></div>
                   )}
                 </button>
               )

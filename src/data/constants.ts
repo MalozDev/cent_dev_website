@@ -12,7 +12,7 @@ import {
 export const COMPANY_INFO = {
   name: "Centurion Developers",
   shortName: "CenDev",
-  email: "malozdev@gmail.com",
+  email: "developerscenturion@gmail.com",
   phone: "+260975623742",
   phoneDisplay: "+260 975 623 742",
   location: "Lusaka, Zambia",
@@ -81,7 +81,7 @@ export const TEAM_MEMBERS = [
     name: "Mubanga Bowa",
     role: "Strategic Lead",
     color: "from-emerald-400 via-green-500 to-teal-600",
-    image: "/team/mubanga.jpg",
+    image: "/team/mubanga.jpeg",
     linkedin: "https://www.linkedin.com/in/mubanga-bowa",
     github: "https://github.com/mubangabowa",
   },
@@ -97,7 +97,7 @@ export const TEAM_MEMBERS = [
     name: "Niza Khunga",
     role: "Software Architect",
     color: "from-green-400 via-teal-500 to-emerald-600",
-    image: "/team/niza.jpg",
+    image: "/team/niza.jpeg",
     linkedin: "https://www.linkedin.com/in/niza-khunga",
     github: "https://github.com/nizakhunga",
   },
@@ -106,7 +106,7 @@ export const TEAM_MEMBERS = [
     role: "AI/Cloud Specialist",
     color: "from-cyan-400 via-teal-500 to-green-600",
     image: "/team/stanly.jpeg",
-    linkedin: "https://www.linkedin.com/in/stanley-kalenga",
+    linkedin: "https://www.linkedin.com/in/stanley-kalenga-265b08266",
     github: "https://github.com/stanleykalenga",
   },
   {
@@ -114,7 +114,8 @@ export const TEAM_MEMBERS = [
     role: "Lead Web Developer",
     color: "from-emerald-500 via-green-500 to-teal-500",
     image: "/team/stephan.jpeg",
-    linkedin: "https://www.linkedin.com/in/stephan-malobeka",
+    linkedin:
+      "https://www.linkedin.com/in/stephan-malobeka-154a7b31b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
     github: "https://github.com/malozdev",
   },
   {

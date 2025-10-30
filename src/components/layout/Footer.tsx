@@ -17,7 +17,7 @@ const Footer = () => {
               </div>
             </div>
             <div>
-              <div className="font-bold text-base sm:text-lg">CenDev's</div>
+              <div className="font-bold text-base sm:text-lg">CENDEV</div>
               <div className="text-xs text-gray-500">
                 © 2025 All rights reserved
               </div>

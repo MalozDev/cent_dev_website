@@ -2,6 +2,99 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { PROJECTS } from "../../data/constants";
+import { useMouseGlow } from "../../hooks/useMouseGlow";
+
+type Project = {
+  title: string;
+  description: string;
+  technologies: string[];
+  status: string;
+  image: string;
+  year: string;
+  category: string;
+};
+
+const ProjectCard = ({
+  project,
+  onClick,
+}: {
+  project: Project;
+  onClick: () => void;
+}) => {
+  const { cardRef, mousePosition, isHovered } = useMouseGlow();
+
+  return (
+    <div
+      ref={cardRef}
+      onClick={onClick}
+      className="flex-shrink-0 w-64 sm:w-80 cursor-pointer group relative"
+    >
+      {/* Border glow that follows mouse */}
+      <div
+        className="absolute inset-0 rounded-xl pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-200 ease-out"
+        style={{
+          background: isHovered
+            ? `radial-gradient(200px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(16, 185, 129, 0.6), transparent 100%)`
+            : "transparent",
+          WebkitMaskImage:
+            "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+          WebkitMaskComposite: "xor",
+          maskComposite: "exclude",
+          padding: "1px",
+        }}
+      />
+
+      <div className="relative bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl overflow-hidden transition-all duration-300 h-full">
+        {/* Project Image Placeholder */}
+        <div className="h-40 sm:h-48 bg-gradient-to-br from-emerald-500/10 to-teal-500/10 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gray-800/50"></div>
+          {/* Category Badge */}
+          <div className="absolute top-3 left-3 px-3 py-1 bg-emerald-500/90 backdrop-blur-sm rounded-full">
+            <span className="text-white text-xs font-bold">
+              {project.category}
+            </span>
+          </div>
+          {/* Year Badge */}
+          <div className="absolute top-3 right-3 px-2 py-1 bg-gray-900/90 backdrop-blur-sm rounded-full border border-emerald-500/30">
+            <span className="text-emerald-400 text-xs font-bold">
+              {project.year}
+            </span>
+          </div>
+        </div>
+
+        {/* Project Info */}
+        <div className="p-4">
+          <h3 className="text-lg font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors line-clamp-1">
+            {project.title}
+          </h3>
+          <p className="text-sm text-gray-400 mb-3 line-clamp-2">
+            {project.description}
+          </p>
+
+          {/* Technologies */}
+          <div className="flex flex-wrap gap-1.5">
+            {project.technologies.slice(0, 3).map((tech, techIdx) => (
+              <span
+                key={techIdx}
+                className="px-2 py-0.5 bg-emerald-500/10 border border-emerald-500/20 rounded text-xs font-semibold text-emerald-400"
+              >
+                {tech}
+              </span>
+            ))}
+            {project.technologies.length > 3 && (
+              <span className="px-2 py-0.5 text-xs font-semibold text-gray-500">
+                +{project.technologies.length - 3}
+              </span>
+            )}
+          </div>
+        </div>
+
+        {/* Hover Effect */}
+        <div className="absolute inset-0 bg-emerald-500/0 group-hover:bg-emerald-500/5 transition-all pointer-events-none"></div>
+      </div>
+    </div>
+  );
+};
 
 const ProjectsShowcase = () => {
   const navigate = useNavigate();
@@ -67,61 +160,11 @@ const ProjectsShowcase = () => {
           }}
         >
           {duplicatedProjects.map((project, index) => (
-            <motion.div
+            <ProjectCard
               key={`${project.title}-${index}`}
+              project={project}
               onClick={() => handleProjectClick(project.category)}
-              whileHover={{ scale: 1.05, y: -5 }}
-              className="flex-shrink-0 w-64 sm:w-80 cursor-pointer group"
-            >
-              <div className="relative bg-gray-800/50 backdrop-blur-sm border border-gray-700 group-hover:border-emerald-500/50 rounded-xl overflow-hidden transition-all duration-300 h-full">
-                {/* Project Image Placeholder */}
-                <div className="h-40 sm:h-48 bg-gradient-to-br from-emerald-500/10 to-teal-500/10 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gray-800/50"></div>
-                  {/* Category Badge */}
-                  <div className="absolute top-3 left-3 px-3 py-1 bg-emerald-500/90 backdrop-blur-sm rounded-full">
-                    <span className="text-white text-xs font-bold">
-                      {project.category}
-                    </span>
-                  </div>
-                  {/* Year Badge */}
-                  <div className="absolute top-3 right-3 px-2 py-1 bg-gray-900/90 backdrop-blur-sm rounded-full border border-emerald-500/30">
-                    <span className="text-emerald-400 text-xs font-bold">
-                      {project.year}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Project Info */}
-                <div className="p-4">
-                  <h3 className="text-lg font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors line-clamp-1">
-                    {project.title}
-                  </h3>
-                  <p className="text-sm text-gray-400 mb-3 line-clamp-2">
-                    {project.description}
-                  </p>
-
-                  {/* Technologies */}
-                  <div className="flex flex-wrap gap-1.5">
-                    {project.technologies.slice(0, 3).map((tech, techIdx) => (
-                      <span
-                        key={techIdx}
-                        className="px-2 py-0.5 bg-emerald-500/10 border border-emerald-500/20 rounded text-xs font-semibold text-emerald-400"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                    {project.technologies.length > 3 && (
-                      <span className="px-2 py-0.5 text-xs font-semibold text-gray-500">
-                        +{project.technologies.length - 3}
-                      </span>
-                    )}
-                  </div>
-                </div>
-
-                {/* Hover Effect */}
-                <div className="absolute inset-0 bg-emerald-500/0 group-hover:bg-emerald-500/5 transition-all pointer-events-none"></div>
-              </div>
-            </motion.div>
+            />
           ))}
         </motion.div>
       </div>

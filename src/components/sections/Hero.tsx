@@ -5,6 +5,45 @@ import { TypeAnimation } from "react-type-animation";
 import { Sparkles, Rocket, ArrowUpRight } from "lucide-react";
 import { STATS } from "../../data/constants";
 import QuotationForm from "../QuotationForm";
+import { useMouseGlow } from "../../hooks/useMouseGlow";
+
+const StatCard = ({ stat, idx }: { stat: (typeof STATS)[0]; idx: number }) => {
+  const { cardRef, mousePosition, isHovered } = useMouseGlow();
+
+  return (
+    <motion.div
+      ref={cardRef}
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5, delay: 1.1 + idx * 0.1 }}
+      className="relative group"
+    >
+      {/* Border glow that follows mouse */}
+      <div
+        className="absolute inset-0 rounded-xl sm:rounded-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-200 ease-out"
+        style={{
+          background: isHovered
+            ? `radial-gradient(200px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(16, 185, 129, 0.6), transparent 100%)`
+            : "transparent",
+          WebkitMaskImage:
+            "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+          WebkitMaskComposite: "xor",
+          maskComposite: "exclude",
+          padding: "1px",
+        }}
+      />
+
+      <div className="relative bg-gray-900/50 backdrop-blur-sm border border-emerald-500/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 transition-colors duration-300">
+        <div className="text-2xl sm:text-3xl lg:text-4xl font-black bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-1 sm:mb-2">
+          {stat.number}
+        </div>
+        <div className="text-gray-500 text-xs sm:text-sm font-medium">
+          {stat.label}
+        </div>
+      </div>
+    </motion.div>
+  );
+};
 
 const Hero = () => {
   const [isQuotationFormOpen, setIsQuotationFormOpen] = useState(false);
@@ -93,24 +132,20 @@ const Hero = () => {
           transition={{ duration: 0.6, delay: 0.9 }}
           className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-12 sm:mb-16 lg:mb-20 justify-center"
         >
-          <motion.button
+          <button
             onClick={() => setIsQuotationFormOpen(true)}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="group px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-xl font-bold text-base sm:text-lg shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/40 transition-shadow duration-300 flex items-center justify-center space-x-2"
+            className="group px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-xl font-bold text-base sm:text-lg shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/40 transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center space-x-2"
           >
             <span>Get Quotation</span>
             <Rocket className="w-4 h-4 sm:w-5 sm:h-5" />
-          </motion.button>
-          <motion.button
+          </button>
+          <button
             onClick={() => navigate("/portfolio")}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="px-6 sm:px-8 py-3 sm:py-4 border-2 border-emerald-500/30 rounded-xl font-bold text-base sm:text-lg hover:bg-emerald-500/10 transition-colors duration-300 flex items-center justify-center space-x-2"
+            className="px-6 sm:px-8 py-3 sm:py-4 border-2 border-emerald-500/30 rounded-xl font-bold text-base sm:text-lg hover:bg-emerald-500/10 transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center space-x-2"
           >
             <span>View Our Work</span>
             <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5" />
-          </motion.button>
+          </button>
         </motion.div>
 
         {/* Quotation Form Modal */}
@@ -122,23 +157,7 @@ const Hero = () => {
         {/* Stats */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
           {STATS.map((stat, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 1.1 + idx * 0.1 }}
-              className="relative group"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 rounded-xl sm:rounded-2xl blur-xl opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
-              <div className="relative bg-gray-900/50 backdrop-blur-sm border border-emerald-500/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 hover:border-emerald-500/40 transition-colors duration-300">
-                <div className="text-2xl sm:text-3xl lg:text-4xl font-black bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-1 sm:mb-2">
-                  {stat.number}
-                </div>
-                <div className="text-gray-500 text-xs sm:text-sm font-medium">
-                  {stat.label}
-                </div>
-              </div>
-            </motion.div>
+            <StatCard key={idx} stat={stat} idx={idx} />
           ))}
         </div>
       </div>
