@@ -74,7 +74,7 @@ const Hero = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="block bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent"
           >
-            Building The
+            Building
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -86,13 +86,41 @@ const Hero = () => {
               sequence={[
                 "",
                 500,
-                "Future of Tech",
+                " The Future of Tech",
                 2000,
-                "Innovation Hub",
+                "Innovations",
                 2000,
                 "Digital Excellence",
                 2000,
                 "Tech Solutions",
+                2000,
+                "Scalable Solutions",
+                2000,
+                "Smart Solutions",
+                2000,
+                "User-Friendly Solutions",
+                2000,
+                "Smart Systems",
+                2000,
+                "Innovative Solutions",
+                2000,
+                "Infrastructure Solutions",
+                2000,
+                "Security Solutions",
+                2000,
+                "Data Solutions",
+                2000,
+                "Cloud Solutions",
+                2000,
+                "AI Solutions",
+                2000,
+                "IoT Solutions",
+                2000,
+                "Blockchain Solutions",
+                2000,
+                "Machine Learning Solutions",
+                2000,
+                "Data Science Solutions",
                 2000,
               ]}
               wrapper="span"
