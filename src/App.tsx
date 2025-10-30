@@ -78,7 +78,7 @@ const AnimatedRoutes = () => {
 
 function App() {
   const glowRef = useRef<HTMLDivElement>(null);
-  const rafRef = useRef<number>();
+  const rafRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {

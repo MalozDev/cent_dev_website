@@ -22,9 +22,12 @@ const HomePage = () => {
       // Ensure we're at the top immediately for instant hero display
       window.scrollTo({ top: 0, behavior: "instant" });
 
+      // Capture scrollTo value for use in timeout
+      const scrollToSection = state.scrollTo;
+
       // Wait for: fade-in transition (1200ms) + hero animations display (1800ms)
       const timer = setTimeout(() => {
-        const element = document.getElementById(state.scrollTo);
+        const element = document.getElementById(scrollToSection);
         if (element) {
           // Triple RAF to ensure everything is fully rendered and painted
           requestAnimationFrame(() => {
@@ -33,7 +36,7 @@ const HomePage = () => {
                 // Force layout recalculation for accurate positioning
                 const rect = element.getBoundingClientRect();
                 const headerOffset =
-                  state.scrollTo === "about" || state.scrollTo === "services"
+                  scrollToSection === "about" || scrollToSection === "services"
                     ? 40
                     : 80;
                 const offsetPosition = rect.top + window.scrollY - headerOffset;
