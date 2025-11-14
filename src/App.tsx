@@ -12,6 +12,7 @@ import HomePage from "./pages/HomePage";
 import PortfolioPage from "./pages/PortfolioPage";
 import LoadingSpinner from "./components/LoadingSpinner";
 import { COMPANY_INFO } from "./data/constants";
+import { useTheme } from "./contexts/ThemeContext";
 import "./index.css";
 
 const AnimatedRoutes = () => {
@@ -101,6 +102,7 @@ const AnimatedRoutes = () => {
 };
 
 function App() {
+  const { theme } = useTheme();
   const glowRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number | undefined>(undefined);
   const [isInitialLoading, setIsInitialLoading] = useState(true);
@@ -176,16 +178,34 @@ function App() {
         {isInitialLoading && <LoadingSpinner />}
       </AnimatePresence>
 
-      <div className="min-h-screen bg-gray-950 text-white overflow-hidden">
+      <div className={`min-h-screen overflow-hidden transition-colors duration-300 ${
+        theme === "dark" 
+          ? "bg-gray-950 text-white" 
+          : "bg-white text-black"
+      }`}>
         {/* Animated Background */}
         <div className="fixed inset-0 z-0 pointer-events-none">
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-emerald-950/20 to-gray-950"></div>
-          <div
-            ref={glowRef}
-            className="hidden md:block absolute top-0 left-0 w-64 h-64 md:w-96 md:h-96 bg-emerald-500/10 rounded-full blur-3xl transition-transform duration-300 ease-out will-change-transform"
-          ></div>
-          <div className="absolute top-1/4 right-1/4 w-64 h-64 md:w-96 md:h-96 bg-green-500/5 rounded-full blur-3xl animate-pulse will-change-opacity"></div>
-          <div className="absolute bottom-1/4 left-1/3 w-64 h-64 md:w-96 md:h-96 bg-teal-500/5 rounded-full blur-3xl animate-pulse delay-700 will-change-opacity"></div>
+          {theme === "dark" ? (
+            <>
+              <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-emerald-950/20 to-gray-950"></div>
+              <div
+                ref={glowRef}
+                className="hidden md:block absolute top-0 left-0 w-64 h-64 md:w-96 md:h-96 bg-emerald-500/10 rounded-full blur-3xl transition-transform duration-300 ease-out will-change-transform"
+              ></div>
+              <div className="absolute top-1/4 right-1/4 w-64 h-64 md:w-96 md:h-96 bg-green-500/5 rounded-full blur-3xl animate-pulse will-change-opacity"></div>
+              <div className="absolute bottom-1/4 left-1/3 w-64 h-64 md:w-96 md:h-96 bg-teal-500/5 rounded-full blur-3xl animate-pulse delay-700 will-change-opacity"></div>
+            </>
+          ) : (
+            <>
+              <div className="absolute inset-0 bg-gradient-to-br from-white via-orange-50/30 to-white"></div>
+              <div
+                ref={glowRef}
+                className="hidden md:block absolute top-0 left-0 w-64 h-64 md:w-96 md:h-96 bg-orange-500/20 rounded-full blur-3xl transition-transform duration-300 ease-out will-change-transform"
+              ></div>
+              <div className="absolute top-1/4 right-1/4 w-64 h-64 md:w-96 md:h-96 bg-orange-400/10 rounded-full blur-3xl animate-pulse will-change-opacity"></div>
+              <div className="absolute bottom-1/4 left-1/3 w-64 h-64 md:w-96 md:h-96 bg-orange-300/10 rounded-full blur-3xl animate-pulse delay-700 will-change-opacity"></div>
+            </>
+          )}
         </div>
 
         {/* Content Wrapper */}

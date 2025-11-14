@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import cendevLogo from "/cendev.svg";
+import { useTheme } from "../contexts/ThemeContext";
 
 interface LoadingSpinnerProps {
   size?: "sm" | "md" | "lg" | "xl";
@@ -10,6 +11,7 @@ const LoadingSpinner = ({
   size = "md",
   fullScreen = true,
 }: LoadingSpinnerProps) => {
+  const { theme } = useTheme();
   const sizeClasses = {
     sm: "w-12 h-12",
     md: "w-20 h-20",
@@ -42,7 +44,9 @@ const LoadingSpinner = ({
 
       {/* Pulsing Glow Effect */}
       <motion.div
-        className="absolute inset-0 bg-emerald-500/20 rounded-full blur-xl"
+        className={`absolute inset-0 rounded-full blur-xl transition-colors duration-300 ${
+          theme === "dark" ? "bg-emerald-500/20" : "bg-orange-500/20"
+        }`}
         animate={{
           scale: [1, 1.3, 1],
           opacity: [0.3, 0.8, 0.3],
@@ -58,7 +62,9 @@ const LoadingSpinner = ({
   if (fullScreen) {
     return (
       <motion.div
-        className="fixed inset-0 z-[10000] flex items-center justify-center bg-gray-950/95 backdrop-blur-sm"
+        className={`fixed inset-0 z-[10000] flex items-center justify-center backdrop-blur-sm transition-colors duration-300 ${
+          theme === "dark" ? "bg-gray-950/95" : "bg-white/95"
+        }`}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -74,7 +80,9 @@ const LoadingSpinner = ({
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <span className="text-emerald-400 font-semibold text-lg">
+            <span className={`font-semibold text-lg transition-colors duration-300 ${
+              theme === "dark" ? "text-emerald-400" : "text-orange-500"
+            }`}>
               Loading
             </span>
             <motion.span
@@ -88,9 +96,9 @@ const LoadingSpinner = ({
                 ease: "easeInOut",
               }}
             >
-              <span className="text-emerald-400">.</span>
-              <span className="text-emerald-400">.</span>
-              <span className="text-emerald-400">.</span>
+              <span className={theme === "dark" ? "text-emerald-400" : "text-orange-500"}>.</span>
+              <span className={theme === "dark" ? "text-emerald-400" : "text-orange-500"}>.</span>
+              <span className={theme === "dark" ? "text-emerald-400" : "text-orange-500"}>.</span>
             </motion.span>
           </motion.div>
         </div>

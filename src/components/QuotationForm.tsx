@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Send, Loader2, CheckCircle, AlertCircle } from "lucide-react";
+import { useTheme } from "../contexts/ThemeContext";
 
 interface QuotationFormProps {
   isOpen: boolean;
@@ -9,6 +10,7 @@ interface QuotationFormProps {
 }
 
 const QuotationForm = ({ isOpen, onClose }: QuotationFormProps) => {
+  const { theme } = useTheme();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -145,7 +147,9 @@ This request was sent from the CenDev website quotation form.
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+          className={`fixed inset-0 z-[9999] flex items-center justify-center p-4 backdrop-blur-sm transition-colors duration-300 ${
+            theme === "dark" ? "bg-black/80" : "bg-black/60"
+          }`}
           onClick={onClose}
         >
           <motion.div
@@ -154,24 +158,42 @@ This request was sent from the CenDev website quotation form.
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ duration: 0.3 }}
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-gray-900 rounded-2xl border border-emerald-500/20 shadow-2xl"
+            className={`relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl transition-colors duration-300 ${
+              theme === "dark"
+                ? "bg-gray-900 border border-emerald-500/20"
+                : "bg-white border border-orange-500/30"
+            }`}
           >
             {/* Header */}
-            <div className="sticky top-0 z-10 bg-gray-900 border-b border-emerald-500/20 px-6 py-4 flex items-center justify-between">
+            <div className={`sticky top-0 z-10 px-6 py-4 flex items-center justify-between transition-colors duration-300 ${
+              theme === "dark"
+                ? "bg-gray-900 border-b border-emerald-500/20"
+                : "bg-white border-b border-orange-500/30"
+            }`}>
               <div>
-                <h2 className="text-2xl font-bold text-white">
+                <h2 className={`text-2xl font-bold transition-colors duration-300 ${
+                  theme === "dark" ? "text-white" : "text-black"
+                }`}>
                   Request a Quotation
                 </h2>
-                <p className="text-sm text-gray-400 mt-1">
+                <p className={`text-sm mt-1 transition-colors duration-300 ${
+                  theme === "dark" ? "text-gray-400" : "text-gray-600"
+                }`}>
                   Tell us about your project and we'll get back to you within 24
                   hours
                 </p>
               </div>
               <button
                 onClick={onClose}
-                className="p-2 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 transition-colors"
+                className={`p-2 rounded-lg transition-colors duration-300 ${
+                  theme === "dark"
+                    ? "bg-emerald-500/10 hover:bg-emerald-500/20"
+                    : "bg-orange-500/10 hover:bg-orange-500/20"
+                }`}
               >
-                <X className="w-5 h-5 text-emerald-400" />
+                <X className={`w-5 h-5 transition-colors duration-300 ${
+                  theme === "dark" ? "text-emerald-400" : "text-orange-500"
+                }`} />
               </button>
             </div>
 
@@ -181,7 +203,9 @@ This request was sent from the CenDev website quotation form.
               <div>
                 <label
                   htmlFor="name"
-                  className="block text-sm font-semibold text-gray-300 mb-2"
+                  className={`block text-sm font-semibold mb-2 transition-colors duration-300 ${
+                    theme === "dark" ? "text-gray-300" : "text-gray-700"
+                  }`}
                 >
                   Full Name <span className="text-red-400">*</span>
                 </label>
@@ -192,7 +216,11 @@ This request was sent from the CenDev website quotation form.
                   required
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:outline-none focus:border-emerald-500 text-white placeholder-gray-500 transition-colors"
+                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none transition-colors duration-300 ${
+                    theme === "dark"
+                      ? "bg-gray-800/50 border-gray-700 focus:border-emerald-500 text-white placeholder-gray-500"
+                      : "bg-gray-100/50 border-gray-300 focus:border-orange-500 text-black placeholder-gray-500"
+                  }`}
                   placeholder="John Doe"
                 />
               </div>
@@ -201,7 +229,9 @@ This request was sent from the CenDev website quotation form.
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-semibold text-gray-300 mb-2"
+                  className={`block text-sm font-semibold mb-2 transition-colors duration-300 ${
+                    theme === "dark" ? "text-gray-300" : "text-gray-700"
+                  }`}
                 >
                   Email Address <span className="text-red-400">*</span>
                 </label>
@@ -212,7 +242,11 @@ This request was sent from the CenDev website quotation form.
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:outline-none focus:border-emerald-500 text-white placeholder-gray-500 transition-colors"
+                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none transition-colors duration-300 ${
+                    theme === "dark"
+                      ? "bg-gray-800/50 border-gray-700 focus:border-emerald-500 text-white placeholder-gray-500"
+                      : "bg-gray-100/50 border-gray-300 focus:border-orange-500 text-black placeholder-gray-500"
+                  }`}
                   placeholder="john@example.com"
                 />
               </div>
@@ -221,7 +255,9 @@ This request was sent from the CenDev website quotation form.
               <div>
                 <label
                   htmlFor="phone"
-                  className="block text-sm font-semibold text-gray-300 mb-2"
+                  className={`block text-sm font-semibold mb-2 transition-colors duration-300 ${
+                    theme === "dark" ? "text-gray-300" : "text-gray-700"
+                  }`}
                 >
                   Phone Number <span className="text-red-400">*</span>
                 </label>
@@ -232,7 +268,11 @@ This request was sent from the CenDev website quotation form.
                   required
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:outline-none focus:border-emerald-500 text-white placeholder-gray-500 transition-colors"
+                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none transition-colors duration-300 ${
+                    theme === "dark"
+                      ? "bg-gray-800/50 border-gray-700 focus:border-emerald-500 text-white placeholder-gray-500"
+                      : "bg-gray-100/50 border-gray-300 focus:border-orange-500 text-black placeholder-gray-500"
+                  }`}
                   placeholder="+260 XXX XXX XXX"
                 />
               </div>
@@ -241,7 +281,9 @@ This request was sent from the CenDev website quotation form.
               <div>
                 <label
                   htmlFor="company"
-                  className="block text-sm font-semibold text-gray-300 mb-2"
+                  className={`block text-sm font-semibold mb-2 transition-colors duration-300 ${
+                    theme === "dark" ? "text-gray-300" : "text-gray-700"
+                  }`}
                 >
                   Company Name <span className="text-gray-500">(Optional)</span>
                 </label>
@@ -251,7 +293,11 @@ This request was sent from the CenDev website quotation form.
                   name="company"
                   value={formData.company}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:outline-none focus:border-emerald-500 text-white placeholder-gray-500 transition-colors"
+                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none transition-colors duration-300 ${
+                    theme === "dark"
+                      ? "bg-gray-800/50 border-gray-700 focus:border-emerald-500 text-white placeholder-gray-500"
+                      : "bg-gray-100/50 border-gray-300 focus:border-orange-500 text-black placeholder-gray-500"
+                  }`}
                   placeholder="Your Company Ltd."
                 />
               </div>
@@ -260,7 +306,9 @@ This request was sent from the CenDev website quotation form.
               <div>
                 <label
                   htmlFor="projectType"
-                  className="block text-sm font-semibold text-gray-300 mb-2"
+                  className={`block text-sm font-semibold mb-2 transition-colors duration-300 ${
+                    theme === "dark" ? "text-gray-300" : "text-gray-700"
+                  }`}
                 >
                   Project Type <span className="text-red-400">*</span>
                 </label>
@@ -270,7 +318,11 @@ This request was sent from the CenDev website quotation form.
                   required
                   value={formData.projectType}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:outline-none focus:border-emerald-500 text-white transition-colors"
+                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none transition-colors duration-300 ${
+                    theme === "dark"
+                      ? "bg-gray-800/50 border-gray-700 focus:border-emerald-500 text-white"
+                      : "bg-gray-100/50 border-gray-300 focus:border-orange-500 text-black"
+                  }`}
                 >
                   <option value="">Select a project type</option>
                   {projectTypes.map((type) => (
@@ -285,7 +337,9 @@ This request was sent from the CenDev website quotation form.
               <div>
                 <label
                   htmlFor="budget"
-                  className="block text-sm font-semibold text-gray-300 mb-2"
+                  className={`block text-sm font-semibold mb-2 transition-colors duration-300 ${
+                    theme === "dark" ? "text-gray-300" : "text-gray-700"
+                  }`}
                 >
                   Budget Range <span className="text-red-400">*</span>
                 </label>
@@ -295,7 +349,11 @@ This request was sent from the CenDev website quotation form.
                   required
                   value={formData.budget}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:outline-none focus:border-emerald-500 text-white transition-colors"
+                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none transition-colors duration-300 ${
+                    theme === "dark"
+                      ? "bg-gray-800/50 border-gray-700 focus:border-emerald-500 text-white"
+                      : "bg-gray-100/50 border-gray-300 focus:border-orange-500 text-black"
+                  }`}
                 >
                   <option value="">Select a budget range</option>
                   {budgetRanges.map((range) => (
@@ -310,7 +368,9 @@ This request was sent from the CenDev website quotation form.
               <div>
                 <label
                   htmlFor="message"
-                  className="block text-sm font-semibold text-gray-300 mb-2"
+                  className={`block text-sm font-semibold mb-2 transition-colors duration-300 ${
+                    theme === "dark" ? "text-gray-300" : "text-gray-700"
+                  }`}
                 >
                   Project Description <span className="text-red-400">*</span>
                 </label>
@@ -321,7 +381,11 @@ This request was sent from the CenDev website quotation form.
                   value={formData.message}
                   onChange={handleChange}
                   rows={5}
-                  className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:outline-none focus:border-emerald-500 text-white placeholder-gray-500 transition-colors resize-none"
+                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none transition-colors duration-300 resize-none ${
+                    theme === "dark"
+                      ? "bg-gray-800/50 border-gray-700 focus:border-emerald-500 text-white placeholder-gray-500"
+                      : "bg-gray-100/50 border-gray-300 focus:border-orange-500 text-black placeholder-gray-500"
+                  }`}
                   placeholder="Tell us more about your project requirements, timeline, and any specific features you need..."
                 />
               </div>
@@ -346,7 +410,11 @@ This request was sent from the CenDev website quotation form.
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full px-6 py-4 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-lg font-bold text-lg shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/40 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+                    className={`w-full px-6 py-4 rounded-lg font-bold text-lg shadow-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2 ${
+                      theme === "dark"
+                        ? "bg-gradient-to-r from-emerald-500 to-teal-500 shadow-emerald-500/20 hover:shadow-emerald-500/40 text-white"
+                        : "bg-gradient-to-r from-orange-500 to-orange-600 shadow-orange-500/20 hover:shadow-orange-500/40 text-white"
+                    }`}
                   >
                     {isSubmitting ? (
                       <>

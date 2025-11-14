@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Menu, BrainCircuit } from "lucide-react";
 import MobileMenu from "./MobileMenu";
+import ThemeToggle from "../ThemeToggle";
+import { useTheme } from "../../contexts/ThemeContext";
 
 interface HeaderProps {
   scrollToSection: (sectionId: string) => void;
@@ -9,6 +11,7 @@ interface HeaderProps {
 }
 
 const Header = ({ scrollToSection, handleWhatsAppClick }: HeaderProps) => {
+  const { theme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
@@ -113,8 +116,12 @@ const Header = ({ scrollToSection, handleWhatsAppClick }: HeaderProps) => {
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-gray-950/80 backdrop-blur-xl border-b border-emerald-500/10"
-          : ""
+          ? theme === "dark"
+            ? "bg-gray-950/80 backdrop-blur-xl border-b border-emerald-500/10"
+            : "bg-white/80 backdrop-blur-xl border-b border-orange-500/20"
+          : theme === "light"
+            ? "md:border-b-0 border-b border-orange-500/30"
+            : ""
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -124,21 +131,39 @@ const Header = ({ scrollToSection, handleWhatsAppClick }: HeaderProps) => {
             onClick={() => navigate("/")}
           >
             <div className="relative">
-              <div className="absolute inset-0 bg-emerald-400/40 rounded-lg sm:rounded-xl blur-lg group-hover:blur-xl transition-all duration-300 animate-pulse"></div>
-              <div className="relative w-10 h-10 sm:w-12 sm:h-12 bg-gray-950 rounded-lg sm:rounded-xl flex items-center justify-center p-2 sm:p-2.5 border border-emerald-400/30 group-hover:border-emerald-400/50 transition-all duration-300">
+              <div className={`absolute inset-0 rounded-lg sm:rounded-xl blur-lg group-hover:blur-xl transition-all duration-300 animate-pulse ${
+                theme === "dark" 
+                  ? "bg-emerald-400/40" 
+                  : "bg-orange-400/40"
+              }`}></div>
+              <div className={`relative w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl flex items-center justify-center p-2 sm:p-2.5 transition-all duration-300 ${
+                theme === "dark"
+                  ? "bg-gray-950 border border-emerald-400/30 group-hover:border-emerald-400/50"
+                  : "bg-white border border-orange-400/30 group-hover:border-orange-400/50"
+              }`}>
                 <BrainCircuit
-                  className="w-full h-full text-emerald-400 drop-shadow-[0_0_10px_rgba(16,185,129,0.7)] group-hover:drop-shadow-[0_0_15px_rgba(16,185,129,0.9)] transition-all duration-300"
+                  className={`w-full h-full transition-all duration-300 ${
+                    theme === "dark"
+                      ? "text-emerald-400 drop-shadow-[0_0_10px_rgba(16,185,129,0.7)] group-hover:drop-shadow-[0_0_15px_rgba(16,185,129,0.9)]"
+                      : "text-orange-500 drop-shadow-[0_0_10px_rgba(249,115,22,0.7)] group-hover:drop-shadow-[0_0_15px_rgba(249,115,22,0.9)]"
+                  }`}
                   strokeWidth={2.5}
                 />
               </div>
             </div>
             <div>
-              <span className="text-xl sm:text-2xl font-black bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
+              <span className={`text-xl sm:text-2xl font-black bg-clip-text text-transparent ${
+                theme === "dark"
+                  ? "bg-gradient-to-r from-emerald-400 to-teal-400"
+                  : "bg-gradient-to-r from-orange-500 to-orange-600"
+              }`}>
                 CENDEV
               </span>
-              <div className="text-[9px] sm:text-xs text-gray-500 font-mono font-medium">
-                <span className="text-emerald-500/60">&lt;</span>Centurion
-                Developers<span className="text-emerald-500/60">/&gt;</span>
+              <div className={`text-[9px] sm:text-xs font-mono font-medium ${
+                theme === "dark" ? "text-gray-500" : "text-gray-600"
+              }`}>
+                <span className={theme === "dark" ? "text-emerald-500/60" : "text-orange-500/60"}>&lt;</span>Centurion
+                Developers<span className={theme === "dark" ? "text-emerald-500/60" : "text-orange-500/60"}>/&gt;</span>
               </div>
             </div>
           </div>
@@ -151,23 +176,30 @@ const Header = ({ scrollToSection, handleWhatsAppClick }: HeaderProps) => {
                   onClick={() => handleNavClick(item)}
                   className={`px-3 lg:px-4 py-2.5 text-sm lg:text-base transition-all relative group ${
                     isActive(item)
-                      ? "text-emerald-400"
-                      : "text-gray-400 hover:text-emerald-400"
+                      ? theme === "dark" ? "text-emerald-400" : "text-orange-500"
+                      : theme === "dark" ? "text-gray-400 hover:text-emerald-400" : "text-gray-600 hover:text-orange-500"
                   }`}
                   style={{ lineHeight: "1.5" }}
                 >
                   <span className="relative z-10">{item}</span>
-                  <div className="absolute inset-0 bg-emerald-500/0 group-hover:bg-emerald-500/10 rounded-lg transition"></div>
+                  <div className={`absolute inset-0 rounded-lg transition ${
+                    theme === "dark" 
+                      ? "bg-emerald-500/0 group-hover:bg-emerald-500/10" 
+                      : "bg-orange-500/0 group-hover:bg-orange-500/10"
+                  }`}></div>
                   {/* Active underline */}
                   {isActive(item) && (
-                    <div className="absolute bottom-0.5 left-3 right-3 h-0.5 bg-emerald-400 rounded-full"></div>
+                    <div className={`absolute bottom-0.5 left-3 right-3 h-0.5 rounded-full ${
+                      theme === "dark" ? "bg-emerald-400" : "bg-orange-500"
+                    }`}></div>
                   )}
                 </button>
               )
             )}
+            <ThemeToggle />
             <button
               onClick={handleWhatsAppClick}
-              className="ml-2 lg:ml-4 px-4 lg:px-6 py-2 lg:py-3 bg-transparent border-2 border-[#25D366] rounded-lg text-sm lg:text-base font-semibold hover:bg-[#25D366]/10 transition-all hover:scale-105 flex items-center space-x-2 text-white"
+              className="ml-2 lg:ml-4 px-4 lg:px-6 py-2 lg:py-3 bg-transparent border-2 border-[#25D366] rounded-lg text-sm lg:text-base font-semibold hover:bg-[#25D366]/10 transition-all hover:scale-105 flex items-center space-x-2"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none">
                 <path
@@ -180,12 +212,21 @@ const Header = ({ scrollToSection, handleWhatsAppClick }: HeaderProps) => {
           </div>
 
           {!isMenuOpen && (
-            <button
-              onClick={() => setIsMenuOpen(true)}
-              className="md:hidden absolute right-0 p-2 sm:p-3 rounded-lg sm:rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 transition-all duration-300"
-            >
-              <Menu className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-400" />
-            </button>
+            <div className="md:hidden absolute right-0 flex items-center space-x-2">
+              <ThemeToggle />
+              <button
+                onClick={() => setIsMenuOpen(true)}
+                className={`p-2 sm:p-3 rounded-lg sm:rounded-xl transition-all duration-300 ${
+                  theme === "dark"
+                    ? "bg-emerald-500/10 hover:bg-emerald-500/20"
+                    : "bg-orange-500/10 hover:bg-orange-500/20"
+                }`}
+              >
+                <Menu className={`w-5 h-5 sm:w-6 sm:h-6 ${
+                  theme === "dark" ? "text-emerald-400" : "text-orange-500"
+                }`} />
+              </button>
+            </div>
           )}
         </div>
       </div>

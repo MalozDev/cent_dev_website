@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { PROJECTS } from "../../data/constants";
 import { useMouseGlow } from "../../hooks/useMouseGlow";
+import { useTheme } from "../../contexts/ThemeContext";
 
 type Project = {
   title: string;
@@ -21,6 +22,7 @@ const ProjectCard = ({
   project: Project;
   onClick: () => void;
 }) => {
+  const { theme } = useTheme();
   const { cardRef, mousePosition, isHovered } = useMouseGlow();
 
   return (
@@ -34,7 +36,9 @@ const ProjectCard = ({
         className="absolute inset-0 rounded-xl pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-200 ease-out"
         style={{
           background: isHovered
-            ? `radial-gradient(200px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(16, 185, 129, 0.6), transparent 100%)`
+            ? theme === "dark"
+              ? `radial-gradient(200px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(16, 185, 129, 0.6), transparent 100%)`
+              : `radial-gradient(200px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(249, 115, 22, 0.6), transparent 100%)`
             : "transparent",
           WebkitMaskImage:
             "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
@@ -44,19 +48,39 @@ const ProjectCard = ({
         }}
       />
 
-      <div className="relative bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl overflow-hidden transition-all duration-300 h-full">
+      <div className={`relative backdrop-blur-sm rounded-xl overflow-hidden transition-all duration-300 h-full ${
+        theme === "dark"
+          ? "bg-gray-800/50 border border-gray-700"
+          : "bg-white/80 border border-gray-200"
+      }`}>
         {/* Project Image Placeholder */}
-        <div className="h-40 sm:h-48 bg-gradient-to-br from-emerald-500/10 to-teal-500/10 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gray-800/50"></div>
+        <div className={`h-40 sm:h-48 relative overflow-hidden transition-colors duration-300 ${
+          theme === "dark"
+            ? "bg-gradient-to-br from-emerald-500/10 to-teal-500/10"
+            : "bg-gradient-to-br from-orange-500/10 to-orange-400/10"
+        }`}>
+          <div className={`absolute inset-0 transition-colors duration-300 ${
+            theme === "dark" ? "bg-gray-800/50" : "bg-gray-200/50"
+          }`}></div>
           {/* Category Badge */}
-          <div className="absolute top-3 left-3 px-3 py-1 bg-emerald-500/90 backdrop-blur-sm rounded-full">
+          <div className={`absolute top-3 left-3 px-3 py-1 backdrop-blur-sm rounded-full transition-colors duration-300 ${
+            theme === "dark"
+              ? "bg-emerald-500/90"
+              : "bg-orange-500/90"
+          }`}>
             <span className="text-white text-xs font-bold">
               {project.category}
             </span>
           </div>
           {/* Year Badge */}
-          <div className="absolute top-3 right-3 px-2 py-1 bg-gray-900/90 backdrop-blur-sm rounded-full border border-emerald-500/30">
-            <span className="text-emerald-400 text-xs font-bold">
+          <div className={`absolute top-3 right-3 px-2 py-1 backdrop-blur-sm rounded-full border transition-colors duration-300 ${
+            theme === "dark"
+              ? "bg-gray-900/90 border-emerald-500/30"
+              : "bg-white/90 border-orange-500/30"
+          }`}>
+            <span className={`text-xs font-bold transition-colors duration-300 ${
+              theme === "dark" ? "text-emerald-400" : "text-orange-500"
+            }`}>
               {project.year}
             </span>
           </div>
@@ -64,10 +88,16 @@ const ProjectCard = ({
 
         {/* Project Info */}
         <div className="p-4">
-          <h3 className="text-lg font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors line-clamp-1">
+          <h3 className={`text-lg font-bold mb-2 transition-colors line-clamp-1 ${
+            theme === "dark"
+              ? "text-white group-hover:text-emerald-400"
+              : "text-black group-hover:text-orange-500"
+          }`}>
             {project.title}
           </h3>
-          <p className="text-sm text-gray-400 mb-3 line-clamp-2">
+          <p className={`text-sm mb-3 line-clamp-2 transition-colors duration-300 ${
+            theme === "dark" ? "text-gray-400" : "text-gray-600"
+          }`}>
             {project.description}
           </p>
 
@@ -76,13 +106,19 @@ const ProjectCard = ({
             {project.technologies.slice(0, 3).map((tech, techIdx) => (
               <span
                 key={techIdx}
-                className="px-2 py-0.5 bg-emerald-500/10 border border-emerald-500/20 rounded text-xs font-semibold text-emerald-400"
+                className={`px-2 py-0.5 border rounded text-xs font-semibold transition-colors duration-300 ${
+                  theme === "dark"
+                    ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-400"
+                    : "bg-orange-500/10 border-orange-500/20 text-orange-500"
+                }`}
               >
                 {tech}
               </span>
             ))}
             {project.technologies.length > 3 && (
-              <span className="px-2 py-0.5 text-xs font-semibold text-gray-500">
+              <span className={`px-2 py-0.5 text-xs font-semibold transition-colors duration-300 ${
+                theme === "dark" ? "text-gray-500" : "text-gray-600"
+              }`}>
                 +{project.technologies.length - 3}
               </span>
             )}
@@ -90,13 +126,18 @@ const ProjectCard = ({
         </div>
 
         {/* Hover Effect */}
-        <div className="absolute inset-0 bg-emerald-500/0 group-hover:bg-emerald-500/5 transition-all pointer-events-none"></div>
+        <div className={`absolute inset-0 transition-all pointer-events-none ${
+          theme === "dark"
+            ? "bg-emerald-500/0 group-hover:bg-emerald-500/5"
+            : "bg-orange-500/0 group-hover:bg-orange-500/5"
+        }`}></div>
       </div>
     </div>
   );
 };
 
 const ProjectsShowcase = () => {
+  const { theme } = useTheme();
   const navigate = useNavigate();
 
   // Flatten all projects from all categories
@@ -115,25 +156,39 @@ const ProjectsShowcase = () => {
   };
 
   return (
-    <section className="py-12 sm:py-16 lg:py-20 bg-gray-900/30 overflow-hidden">
+    <section className={`py-12 sm:py-16 lg:py-20 overflow-hidden transition-colors duration-300 ${
+      theme === "dark" ? "bg-gray-900/30" : "bg-gray-50/50"
+    }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-2">
+            <h2 className={`text-2xl sm:text-3xl md:text-4xl font-black mb-2 transition-colors duration-300 ${
+              theme === "dark" ? "text-white" : "text-black"
+            }`}>
               <span className="shine-wrapper shine-once shine-delay-2">
                 Our Recent Work
               </span>
             </h2>
-            <p className="text-gray-400">
+            <p className={`transition-colors duration-300 ${
+              theme === "dark" ? "text-gray-400" : "text-gray-600"
+            }`}>
               Completed projects across different technologies
             </p>
           </div>
           <button
             onClick={() => navigate("/portfolio")}
-            className="hidden sm:flex items-center space-x-2 px-4 py-2 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-lg transition-all group"
+            className={`hidden sm:flex items-center space-x-2 px-4 py-2 border rounded-lg transition-all group ${
+              theme === "dark"
+                ? "bg-emerald-500/10 hover:bg-emerald-500/20 border-emerald-500/30"
+                : "bg-orange-500/10 hover:bg-orange-500/20 border-orange-500/30"
+            }`}
           >
-            <span className="text-emerald-400 font-semibold">View All</span>
-            <ArrowRight className="w-4 h-4 text-emerald-400 group-hover:translate-x-1 transition-transform" />
+            <span className={`font-semibold transition-colors duration-300 ${
+              theme === "dark" ? "text-emerald-400" : "text-orange-500"
+            }`}>View All</span>
+            <ArrowRight className={`w-4 h-4 group-hover:translate-x-1 transition-transform ${
+              theme === "dark" ? "text-emerald-400" : "text-orange-500"
+            }`} />
           </button>
         </div>
       </div>
@@ -141,8 +196,16 @@ const ProjectsShowcase = () => {
       {/* Scrolling Projects */}
       <div className="relative">
         {/* Gradient overlays */}
-        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-gray-900 via-gray-900/50 to-transparent z-10 pointer-events-none"></div>
-        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-gray-900 via-gray-900/50 to-transparent z-10 pointer-events-none"></div>
+        <div className={`absolute left-0 top-0 bottom-0 w-32 z-10 pointer-events-none transition-colors duration-300 ${
+          theme === "dark"
+            ? "bg-gradient-to-r from-gray-900 via-gray-900/50 to-transparent"
+            : "bg-gradient-to-r from-white via-white/50 to-transparent"
+        }`}></div>
+        <div className={`absolute right-0 top-0 bottom-0 w-32 z-10 pointer-events-none transition-colors duration-300 ${
+          theme === "dark"
+            ? "bg-gradient-to-l from-gray-900 via-gray-900/50 to-transparent"
+            : "bg-gradient-to-l from-white via-white/50 to-transparent"
+        }`}></div>
 
         {/* Scrolling container */}
         <motion.div
@@ -173,12 +236,20 @@ const ProjectsShowcase = () => {
       <div className="sm:hidden flex justify-center mt-6">
         <button
           onClick={() => navigate("/portfolio")}
-          className="flex items-center space-x-2 px-6 py-3 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-lg transition-all"
+          className={`flex items-center space-x-2 px-6 py-3 border rounded-lg transition-all ${
+            theme === "dark"
+              ? "bg-emerald-500/10 hover:bg-emerald-500/20 border-emerald-500/30"
+              : "bg-orange-500/10 hover:bg-orange-500/20 border-orange-500/30"
+          }`}
         >
-          <span className="text-emerald-400 font-semibold">
+          <span className={`font-semibold transition-colors duration-300 ${
+            theme === "dark" ? "text-emerald-400" : "text-orange-500"
+          }`}>
             View All Projects
           </span>
-          <ArrowRight className="w-4 h-4 text-emerald-400" />
+          <ArrowRight className={`w-4 h-4 transition-colors duration-300 ${
+            theme === "dark" ? "text-emerald-400" : "text-orange-500"
+          }`} />
         </button>
       </div>
     </section>

@@ -68,8 +68,15 @@ h6 {
 
 /* Typing Animation Cursor Customization */
 .react-type-animation-cursor {
-  color: #10b981 !important; /* Emerald-500 */
   font-weight: 300;
+}
+
+.dark .react-type-animation-cursor {
+  color: #10b981 !important; /* Emerald-500 */
+}
+
+.light .react-type-animation-cursor {
+  color: #f97316 !important; /* Orange-500 */
 }
 
 /* Gradient Color Shift Animation */

@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Users, Linkedin, Github } from "lucide-react";
 import { TEAM_MEMBERS } from "../../data/constants";
 import { useMouseGlow } from "../../hooks/useMouseGlow";
+import { useTheme } from "../../contexts/ThemeContext";
 
 const TeamCard = ({
   member,
@@ -10,6 +11,7 @@ const TeamCard = ({
   member: (typeof TEAM_MEMBERS)[0];
   idx: number;
 }) => {
+  const { theme } = useTheme();
   const { cardRef, mousePosition, isHovered } = useMouseGlow();
 
   return (
@@ -26,7 +28,9 @@ const TeamCard = ({
         className="absolute inset-0 rounded-2xl sm:rounded-3xl pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-200 ease-out"
         style={{
           background: isHovered
-            ? `radial-gradient(200px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(16, 185, 129, 0.6), transparent 100%)`
+            ? theme === "dark"
+              ? `radial-gradient(200px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(16, 185, 129, 0.6), transparent 100%)`
+              : `radial-gradient(200px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(249, 115, 22, 0.6), transparent 100%)`
             : "transparent",
           WebkitMaskImage:
             "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
@@ -36,7 +40,11 @@ const TeamCard = ({
         }}
       />
 
-      <div className="relative bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl sm:rounded-3xl overflow-hidden transition-all duration-300">
+      <div className={`relative backdrop-blur-sm rounded-2xl sm:rounded-3xl overflow-hidden transition-all duration-300 ${
+        theme === "dark"
+          ? "bg-gray-900/50 border border-gray-800"
+          : "bg-white/80 border border-gray-200"
+      }`}>
         <div
           className={`relative h-56 sm:h-64 lg:h-72 bg-gradient-to-br ${member.color} flex items-center justify-center overflow-hidden`}
         >
@@ -65,28 +73,50 @@ const TeamCard = ({
           <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-60"></div>
         </div>
         <div className="p-5 sm:p-6">
-          <h3 className="text-xl sm:text-2xl font-bold mb-2 group-hover:text-emerald-400 transition">
+          <h3 className={`text-xl sm:text-2xl font-bold mb-2 transition-colors duration-300 ${
+            theme === "dark"
+              ? "text-white group-hover:text-emerald-400"
+              : "text-black group-hover:text-orange-500"
+          }`}>
             {member.name}
           </h3>
-          <p className="text-gray-400 text-sm mb-4">{member.role}</p>
+          <p className={`text-sm mb-4 transition-colors duration-300 ${
+            theme === "dark" ? "text-gray-400" : "text-gray-600"
+          }`}>{member.role}</p>
           <div className="flex space-x-3">
             <a
               href={member.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-gray-800 hover:bg-emerald-500/20 flex items-center justify-center transition-all duration-300 group"
+              className={`w-9 h-9 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center transition-all duration-300 group ${
+                theme === "dark"
+                  ? "bg-gray-800 hover:bg-emerald-500/20"
+                  : "bg-gray-100 hover:bg-orange-500/20"
+              }`}
               aria-label={`${member.name} on LinkedIn`}
             >
-              <Linkedin className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 group-hover:text-emerald-400 transition-colors duration-300" />
+              <Linkedin className={`w-4 h-4 sm:w-5 sm:h-5 transition-colors duration-300 ${
+                theme === "dark"
+                  ? "text-gray-400 group-hover:text-emerald-400"
+                  : "text-gray-600 group-hover:text-orange-500"
+              }`} />
             </a>
             <a
               href={member.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-gray-800 hover:bg-emerald-500/20 flex items-center justify-center transition-all duration-300 group"
+              className={`w-9 h-9 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center transition-all duration-300 group ${
+                theme === "dark"
+                  ? "bg-gray-800 hover:bg-emerald-500/20"
+                  : "bg-gray-100 hover:bg-orange-500/20"
+              }`}
               aria-label={`${member.name} on GitHub`}
             >
-              <Github className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 group-hover:text-emerald-400 transition-colors duration-300" />
+              <Github className={`w-4 h-4 sm:w-5 sm:h-5 transition-colors duration-300 ${
+                theme === "dark"
+                  ? "text-gray-400 group-hover:text-emerald-400"
+                  : "text-gray-600 group-hover:text-orange-500"
+              }`} />
             </a>
           </div>
         </div>
@@ -96,18 +126,31 @@ const TeamCard = ({
 };
 
 const Team = () => {
+  const { theme } = useTheme();
   return (
     <section id="team" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-10 sm:mb-12 lg:mb-16">
-          <div className="inline-flex items-center space-x-2 mb-3 sm:mb-4 px-3 sm:px-4 py-1.5 sm:py-2 bg-emerald-500/10 rounded-full border border-emerald-500/20">
-            <Users className="w-3 h-3 sm:w-4 sm:h-4 text-emerald-400" />
-            <span className="text-emerald-400 font-semibold text-xs sm:text-sm">
+          <div className={`inline-flex items-center space-x-2 mb-3 sm:mb-4 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border transition-colors duration-300 ${
+            theme === "dark"
+              ? "bg-emerald-500/10 border-emerald-500/20"
+              : "bg-orange-500/10 border-orange-500/20"
+          }`}>
+            <Users className={`w-3 h-3 sm:w-4 sm:h-4 transition-colors duration-300 ${
+              theme === "dark" ? "text-emerald-400" : "text-orange-500"
+            }`} />
+            <span className={`font-semibold text-xs sm:text-sm transition-colors duration-300 ${
+              theme === "dark" ? "text-emerald-400" : "text-orange-500"
+            }`}>
               THE TEAM
             </span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-4 sm:mb-6 px-4">
-            <span className="bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent shine-wrapper shine-once shine-delay-4">
+            <span className={`bg-clip-text text-transparent shine-wrapper shine-once shine-delay-4 transition-colors duration-300 ${
+              theme === "dark"
+                ? "bg-gradient-to-r from-white to-gray-400"
+                : "bg-gradient-to-r from-black to-gray-700"
+            }`}>
               Meet The Innovators
             </span>
           </h2>
