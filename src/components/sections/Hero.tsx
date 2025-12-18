@@ -37,21 +37,27 @@ const StatCard = ({ stat, idx }: { stat: (typeof STATS)[0]; idx: number }) => {
         }}
       />
 
-      <div className={`relative backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 transition-colors duration-300 ${
-        theme === "dark"
-          ? "bg-gray-900/50 border border-emerald-500/20"
-          : "bg-white/80 border border-orange-500/30"
-      }`}>
-        <div className={`text-2xl sm:text-3xl lg:text-4xl font-black bg-clip-text text-transparent mb-1 sm:mb-2 ${
+      <div
+        className={`relative backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 transition-colors duration-300 ${
           theme === "dark"
-            ? "bg-gradient-to-r from-emerald-400 to-teal-400"
-            : "bg-gradient-to-r from-orange-500 to-orange-600"
-        }`}>
+            ? "bg-gray-900/50 border border-emerald-500/20"
+            : "bg-white/80 border border-orange-500/30"
+        }`}
+      >
+        <div
+          className={`text-2xl sm:text-3xl lg:text-4xl font-black bg-clip-text text-transparent mb-1 sm:mb-2 ${
+            theme === "dark"
+              ? "bg-linear-to-r from-emerald-400 to-teal-400"
+              : "bg-linear-to-r from-orange-500 to-orange-600"
+          }`}
+        >
           {stat.number}
         </div>
-        <div className={`text-xs sm:text-sm font-medium transition-colors duration-300 ${
-          theme === "dark" ? "text-gray-500" : "text-gray-600"
-        }`}>
+        <div
+          className={`text-xs sm:text-sm font-medium transition-colors duration-300 ${
+            theme === "dark" ? "text-gray-500" : "text-gray-600"
+          }`}
+        >
           {stat.label}
         </div>
       </div>
@@ -76,12 +82,16 @@ const Hero = () => {
           transition={{ duration: 0.6 }}
           className="flex items-center justify-center space-x-2 mb-4 sm:mb-6"
         >
-          <Sparkles className={`w-4 h-4 sm:w-5 sm:h-5 animate-pulse transition-colors duration-300 ${
-            theme === "dark" ? "text-emerald-400" : "text-orange-500"
-          }`} />
-          <span className={`font-semibold tracking-wide uppercase text-xs sm:text-sm transition-colors duration-300 ${
-            theme === "dark" ? "text-emerald-400" : "text-orange-500"
-          }`}>
+          <Sparkles
+            className={`w-4 h-4 sm:w-5 sm:h-5 animate-pulse transition-colors duration-300 ${
+              theme === "dark" ? "text-emerald-400" : "text-orange-500"
+            }`}
+          />
+          <span
+            className={`font-semibold tracking-wide uppercase text-xs sm:text-sm transition-colors duration-300 ${
+              theme === "dark" ? "text-emerald-400" : "text-orange-500"
+            }`}
+          >
             Zambian Tech Innovation
           </span>
         </motion.div>
@@ -93,8 +103,8 @@ const Hero = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             className={`block bg-clip-text text-transparent transition-colors duration-300 ${
               theme === "dark"
-                ? "bg-gradient-to-r from-white to-gray-300"
-                : "bg-gradient-to-r from-black to-gray-700"
+                ? "bg-linear-to-r from-white to-gray-300"
+                : "bg-linear-to-r from-black to-gray-700"
             }`}
           >
             Building
@@ -153,8 +163,8 @@ const Hero = () => {
               deletionSpeed={60}
               className={`bg-clip-text text-transparent ${
                 theme === "dark"
-                  ? "bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400"
-                  : "bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700"
+                  ? "bg-linear-to-r from-emerald-400 via-teal-400 to-cyan-400"
+                  : "bg-linear-to-r from-orange-500 via-orange-600 to-orange-700"
               }`}
               style={{
                 animation: "gradient-shift 8s ease infinite",
@@ -167,8 +177,8 @@ const Hero = () => {
             transition={{ duration: 0.6, delay: 0.5 }}
             className={`block bg-clip-text text-transparent transition-colors duration-300 ${
               theme === "dark"
-                ? "bg-gradient-to-r from-gray-300 to-white"
-                : "bg-gradient-to-r from-gray-700 to-black"
+                ? "bg-linear-to-r from-gray-300 to-white"
+                : "bg-linear-to-r from-gray-700 to-black"
             }`}
           >
             In Africa
@@ -197,8 +207,8 @@ const Hero = () => {
             onClick={() => setIsQuotationFormOpen(true)}
             className={`group px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-bold text-base sm:text-lg transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center space-x-2 ${
               theme === "dark"
-                ? "bg-gradient-to-r from-emerald-500 to-teal-500 shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/40"
-                : "bg-gradient-to-r from-orange-500 to-orange-600 shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 text-white"
+                ? "bg-linear-to-r from-emerald-500 to-teal-500 shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/40"
+                : "bg-linear-to-r from-orange-500 to-orange-600 shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 text-white"
             }`}
           >
             <span>Get Quotation</span>

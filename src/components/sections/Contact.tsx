@@ -33,29 +33,37 @@ const Contact = () => {
           transition={{ duration: 0.6 }}
           className="relative"
         >
-          <div className={`absolute inset-0 rounded-2xl sm:rounded-3xl blur-3xl transition-colors duration-300 ${
-            theme === "dark"
-              ? "bg-gradient-to-br from-emerald-500/10 to-teal-500/10"
-              : "bg-gradient-to-br from-orange-500/10 to-orange-400/10"
-          }`}></div>
-          <div className={`relative backdrop-blur-xl rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-12 transition-colors duration-300 ${
-            theme === "dark"
-              ? "bg-gradient-to-br from-gray-900/80 to-gray-900/60 border border-emerald-500/20"
-              : "bg-gradient-to-br from-white/90 to-white/70 border border-orange-500/30"
-          }`}>
+          <div
+            className={`absolute inset-0 rounded-2xl sm:rounded-3xl blur-3xl transition-colors duration-300 ${
+              theme === "dark"
+                ? "bg-linear-to-br from-emerald-500/10 to-teal-500/10"
+                : "bg-linear-to-br from-orange-500/10 to-orange-400/10"
+            }`}
+          ></div>
+          <div
+            className={`relative backdrop-blur-xl rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-12 transition-colors duration-300 ${
+              theme === "dark"
+                ? "bg-linear-to-br from-gray-900/80 to-gray-900/60 border border-emerald-500/20"
+                : "bg-linear-to-br from-white/90 to-white/70 border border-orange-500/30"
+            }`}
+          >
             <div className="text-center mb-8 sm:mb-10 lg:mb-12">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-3 sm:mb-4 px-2">
-                <span className={`bg-clip-text text-transparent shine-wrapper shine-once shine-delay-3 transition-colors duration-300 ${
-                  theme === "dark"
-                    ? "bg-gradient-to-r from-emerald-400 to-teal-400"
-                    : "bg-gradient-to-r from-orange-500 to-orange-600"
-                }`}>
+                <span
+                  className={`bg-clip-text text-transparent shine-wrapper shine-once shine-delay-3 transition-colors duration-300 ${
+                    theme === "dark"
+                      ? "bg-linear-to-r from-emerald-400 to-teal-400"
+                      : "bg-linear-to-r from-orange-500 to-orange-600"
+                  }`}
+                >
                   Let's Build Something Amazing
                 </span>
               </h2>
-              <p className={`text-base sm:text-lg lg:text-xl px-2 transition-colors duration-300 ${
-                theme === "dark" ? "text-gray-400" : "text-gray-600"
-              }`}>
+              <p
+                className={`text-base sm:text-lg lg:text-xl px-2 transition-colors duration-300 ${
+                  theme === "dark" ? "text-gray-400" : "text-gray-600"
+                }`}
+              >
                 Ready to transform your business? We're just a message away.
               </p>
             </div>
@@ -88,31 +96,41 @@ const Contact = () => {
                     onClick={item.onClick}
                     className="group relative w-full text-center cursor-pointer"
                   >
-                    <div className={`absolute inset-0 rounded-xl transition-opacity duration-300 ${
-                      theme === "dark"
-                        ? "bg-gradient-to-br from-emerald-500/0 to-teal-500/0 group-hover:from-emerald-500/10 group-hover:to-teal-500/10"
-                        : "bg-gradient-to-br from-orange-500/0 to-orange-400/0 group-hover:from-orange-500/10 group-hover:to-orange-400/10"
-                    }`}></div>
-                    <div className={`relative rounded-xl p-5 sm:p-6 text-center transition-colors duration-300 ${
-                      theme === "dark"
-                        ? "bg-gray-800/50 border border-gray-700 group-hover:border-emerald-500/50"
-                        : "bg-gray-100/50 border border-gray-300 group-hover:border-orange-500/50"
-                    }`}>
-                      <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center mx-auto mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300 ${
+                    <div
+                      className={`absolute inset-0 rounded-xl transition-opacity duration-300 ${
                         theme === "dark"
-                          ? "bg-gradient-to-br from-emerald-500 to-teal-500"
-                          : "bg-gradient-to-br from-orange-500 to-orange-600"
-                      }`}>
+                          ? "bg-linear-to-br from-emerald-500/0 to-teal-500/0 group-hover:from-emerald-500/10 group-hover:to-teal-500/10"
+                          : "bg-linear-to-br from-orange-500/0 to-orange-400/0 group-hover:from-orange-500/10 group-hover:to-orange-400/10"
+                      }`}
+                    ></div>
+                    <div
+                      className={`relative rounded-xl p-5 sm:p-6 text-center transition-colors duration-300 ${
+                        theme === "dark"
+                          ? "bg-gray-800/50 border border-gray-700 group-hover:border-emerald-500/50"
+                          : "bg-gray-100/50 border border-gray-300 group-hover:border-orange-500/50"
+                      }`}
+                    >
+                      <div
+                        className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center mx-auto mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300 ${
+                          theme === "dark"
+                            ? "bg-linear-to-br from-emerald-500 to-teal-500"
+                            : "bg-linear-to-br from-orange-500 to-orange-600"
+                        }`}
+                      >
                         <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                       </div>
-                      <div className={`text-xs sm:text-sm mb-1 transition-colors duration-300 ${
-                        theme === "dark" ? "text-gray-500" : "text-gray-600"
-                      }`}>
+                      <div
+                        className={`text-xs sm:text-sm mb-1 transition-colors duration-300 ${
+                          theme === "dark" ? "text-gray-500" : "text-gray-600"
+                        }`}
+                      >
                         {item.label}
                       </div>
-                      <div className={`text-sm font-semibold break-words transition-colors duration-300 ${
-                        theme === "dark" ? "text-gray-300" : "text-gray-700"
-                      }`}>
+                      <div
+                        className={`text-sm font-semibold wrap-break-words transition-colors duration-300 ${
+                          theme === "dark" ? "text-gray-300" : "text-gray-700"
+                        }`}
+                      >
                         {item.value}
                       </div>
                     </div>

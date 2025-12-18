@@ -41,30 +41,38 @@ const ServiceCard = ({
         }}
       />
 
-      <div className={`relative h-full backdrop-blur-sm rounded-xl sm:rounded-2xl p-5 sm:p-6 transition-colors duration-300 ${
-        theme === "dark"
-          ? "bg-gradient-to-br from-gray-900/50 to-gray-900/30 border border-gray-800"
-          : "bg-gradient-to-br from-white/80 to-white/60 border border-gray-200"
-      }`}>
+      <div
+        className={`relative h-full backdrop-blur-sm rounded-xl sm:rounded-2xl p-5 sm:p-6 transition-colors duration-300 ${
+          theme === "dark"
+            ? "bg-linear-to-br from-gray-900/50 to-gray-900/30 border border-gray-800"
+            : "bg-linear-to-br from-white/80 to-white/60 border border-gray-200"
+        }`}
+      >
         <div
           className={`w-12 h-12 sm:w-14 sm:h-14 rounded-lg sm:rounded-xl flex items-center justify-center mb-3 sm:mb-4 transition-colors duration-300 ${
             theme === "dark"
-              ? `bg-gradient-to-br ${service.color}`
-              : "bg-gradient-to-br from-orange-500 to-orange-600"
+              ? `bg-linear-to-br ${service.color}`
+              : "bg-linear-to-br from-orange-500 to-orange-600"
           }`}
         >
           <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
         </div>
-        <h3 className={`text-lg sm:text-xl font-bold mb-2 transition-colors duration-300 ${
-          theme === "dark"
-            ? "group-hover:text-emerald-400"
-            : "group-hover:text-orange-500"
-        }`}>
+        <h3
+          className={`text-lg sm:text-xl font-bold mb-2 transition-colors duration-300 ${
+            theme === "dark"
+              ? "group-hover:text-emerald-400"
+              : "group-hover:text-orange-500"
+          }`}
+        >
           {service.title}
         </h3>
-        <p className={`text-sm transition-colors duration-300 ${
-          theme === "dark" ? "text-gray-500" : "text-gray-600"
-        }`}>{service.desc}</p>
+        <p
+          className={`text-sm transition-colors duration-300 ${
+            theme === "dark" ? "text-gray-500" : "text-gray-600"
+          }`}
+        >
+          {service.desc}
+        </p>
       </div>
     </motion.div>
   );
@@ -79,32 +87,42 @@ const Services = () => {
     >
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-10 sm:mb-12 lg:mb-16">
-          <div className={`inline-flex items-center space-x-2 mb-3 sm:mb-4 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border transition-colors duration-300 ${
-            theme === "dark"
-              ? "bg-emerald-500/10 border-emerald-500/20"
-              : "bg-orange-500/10 border-orange-500/20"
-          }`}>
-            <Zap className={`w-3 h-3 sm:w-4 sm:h-4 transition-colors duration-300 ${
-              theme === "dark" ? "text-emerald-400" : "text-orange-500"
-            }`} />
-            <span className={`font-semibold text-xs sm:text-sm transition-colors duration-300 ${
-              theme === "dark" ? "text-emerald-400" : "text-orange-500"
-            }`}>
+          <div
+            className={`inline-flex items-center space-x-2 mb-3 sm:mb-4 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border transition-colors duration-300 ${
+              theme === "dark"
+                ? "bg-emerald-500/10 border-emerald-500/20"
+                : "bg-orange-500/10 border-orange-500/20"
+            }`}
+          >
+            <Zap
+              className={`w-3 h-3 sm:w-4 sm:h-4 transition-colors duration-300 ${
+                theme === "dark" ? "text-emerald-400" : "text-orange-500"
+              }`}
+            />
+            <span
+              className={`font-semibold text-xs sm:text-sm transition-colors duration-300 ${
+                theme === "dark" ? "text-emerald-400" : "text-orange-500"
+              }`}
+            >
               WHAT WE DO
             </span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-4 sm:mb-6 px-4">
-            <span className={`bg-clip-text text-transparent shine-wrapper shine-once shine-delay-1 transition-colors duration-300 ${
-              theme === "dark"
-                ? "bg-gradient-to-r from-white to-gray-400"
-                : "bg-gradient-to-r from-black to-gray-700"
-            }`}>
+            <span
+              className={`bg-clip-text text-transparent shine-wrapper shine-once shine-delay-1 transition-colors duration-300 ${
+                theme === "dark"
+                  ? "bg-linear-to-r from-white to-gray-400"
+                  : "bg-linear-to-r from-black to-gray-700"
+              }`}
+            >
               Multi-Industry Solutions
             </span>
           </h2>
-          <p className={`text-base sm:text-lg lg:text-xl max-w-2xl mx-auto px-4 transition-colors duration-300 ${
-            theme === "dark" ? "text-gray-400" : "text-gray-600"
-          }`}>
+          <p
+            className={`text-base sm:text-lg lg:text-xl max-w-2xl mx-auto px-4 transition-colors duration-300 ${
+              theme === "dark" ? "text-gray-400" : "text-gray-600"
+            }`}
+          >
             From aviation to retail, we've got the tech stack to power your
             vision
           </p>
