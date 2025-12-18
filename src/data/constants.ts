@@ -86,12 +86,12 @@ export const TEAM_MEMBERS = [
     github: "https://github.com/mubangabowa",
   },
   {
-    name: "Henry Viyui",
-    role: "ML Engineer",
+    name: "David Japhet",
+    role: "Web Developer & Designer",
     color: "from-teal-400 via-emerald-500 to-green-600",
-    image: "/team/henry.jpg",
-    linkedin: "https://www.linkedin.com/in/henry-viyui",
-    github: "https://github.com/henryviyui",
+    image: "/team/davidjaphet.jpeg",
+    linkedin: "http://www.linkedin.com/in/david-japhet-musonda-005413206",
+    github: "https://github.com/davidjaphet",
   },
   {
     name: "Niza Khunga",
