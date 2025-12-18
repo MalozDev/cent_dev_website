@@ -64,12 +64,21 @@ const QuotationForm = ({ isOpen, onClose }: QuotationFormProps) => {
     setSubmitStatus("idle");
 
     try {
-      // Send to your backend API endpoint
+      // For production (Vercel): Use relative URL '/api/send-quotation'
+      // For local development: Use environment variable or localhost
+      const isLocalhost =
+        window.location.hostname === "localhost" ||
+        window.location.hostname === "127.0.0.1";
 
-      const BACKEND_URL =
-        import.meta.env.VITE_BACKEND_URL || "http://localhost:3002";
+      const API_URL = isLocalhost
+        ? `${
+            import.meta.env.VITE_BACKEND_URL || "http://localhost:3001"
+          }/api/send-quotation`
+        : "/api/send-quotation"; // Relative URL works on same Vercel domain
 
-      const response = await fetch(`${BACKEND_URL}/api/send-quotation`, {
+      console.log("Sending request to:", API_URL);
+
+      const response = await fetch(API_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -86,6 +95,7 @@ const QuotationForm = ({ isOpen, onClose }: QuotationFormProps) => {
       });
 
       const data = await response.json();
+      console.log("Response received:", data);
 
       if (response.ok) {
         setSubmitStatus("success");
@@ -104,7 +114,9 @@ const QuotationForm = ({ isOpen, onClose }: QuotationFormProps) => {
           onClose();
         }, 3000);
       } else {
-        throw new Error(data.error || "Failed to send email");
+        throw new Error(
+          data.error || data.message || "Failed to send quotation request"
+        );
       }
     } catch (error) {
       console.error("Error sending quotation request:", error);
@@ -376,19 +388,27 @@ const QuotationForm = ({ isOpen, onClose }: QuotationFormProps) => {
               {/* Submit Button */}
               <div className="pt-4">
                 {submitStatus === "success" ? (
-                  <div className="flex items-center justify-center space-x-2 py-3 bg-green-500/20 border border-green-500/50 rounded-lg text-green-400">
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="flex items-center justify-center space-x-2 py-3 bg-green-500/20 border border-green-500/50 rounded-lg text-green-400"
+                  >
                     <CheckCircle className="w-5 h-5" />
                     <span className="font-semibold">
                       Request sent successfully! We'll contact you soon.
                     </span>
-                  </div>
+                  </motion.div>
                 ) : submitStatus === "error" ? (
-                  <div className="flex items-center justify-center space-x-2 py-3 bg-red-500/20 border border-red-500/50 rounded-lg text-red-400">
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="flex items-center justify-center space-x-2 py-3 bg-red-500/20 border border-red-500/50 rounded-lg text-red-400"
+                  >
                     <AlertCircle className="w-5 h-5" />
                     <span className="font-semibold">
                       Failed to send. Please try again or contact us directly.
                     </span>
-                  </div>
+                  </motion.div>
                 ) : (
                   <button
                     type="submit"
