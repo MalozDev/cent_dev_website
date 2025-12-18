@@ -1,7 +1,21 @@
-// api/send-quotation.js
+// api/send-quotation.js - DEBUG VERSION
 const { Resend } = require("resend");
 
 module.exports = async (req, res) => {
+  console.log("=== API CALL STARTED ===");
+  console.log("Method:", req.method);
+  console.log("Headers:", req.headers);
+
+  // Debug environment
+  console.log("Environment check:", {
+    NODE_ENV: process.env.NODE_ENV,
+    VERCEL_ENV: process.env.VERCEL_ENV,
+    HAS_RESEND_KEY: !!process.env.RESEND_API_KEY,
+    RESEND_KEY_PREVIEW: process.env.RESEND_API_KEY
+      ? "re_" + process.env.RESEND_API_KEY.substring(3, 6) + "..."
+      : "none",
+  });
+
   // Set CORS headers
   res.setHeader("Access-Control-Allow-Credentials", true);
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -16,133 +30,121 @@ module.exports = async (req, res) => {
 
   // Handle OPTIONS preflight
   if (req.method === "OPTIONS") {
-    res.status(200).end();
-    return;
+    console.log("Handling OPTIONS preflight");
+    return res.status(200).end();
   }
 
   if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
+    console.log("Wrong method:", req.method);
+    return res.status(405).json({
+      success: false,
+      error: "Method not allowed. Use POST.",
+    });
   }
 
   try {
-    const { name, email, phone, company, projectType, budget, message } =
-      req.body;
+    console.log("Parsing request body...");
+    let body;
 
+    try {
+      // Vercel serverless functions parse body automatically
+      body = req.body;
+      console.log("Body type:", typeof body);
+      console.log("Body keys:", body ? Object.keys(body) : "empty");
+    } catch (parseError) {
+      console.error("Parse error:", parseError);
+      return res.status(400).json({
+        success: false,
+        error: "Invalid request format",
+      });
+    }
+
+    if (!body) {
+      return res.status(400).json({
+        success: false,
+        error: "No request body provided",
+      });
+    }
+
+    const { name, email, phone, company, projectType, budget, message } = body;
+
+    console.log("Received data:", { name, email, projectType });
+
+    // Quick validation
     if (!name || !email || !phone || !projectType || !budget || !message) {
+      console.log("Missing fields");
       return res.status(400).json({
         success: false,
         error: "Missing required fields",
       });
     }
 
-    console.log(`📧 New quote request from: ${name} (${email})`);
+    // Check for Resend API key
+    if (!process.env.RESEND_API_KEY) {
+      console.log("NO RESEND API KEY FOUND - Running in mock mode");
+      return res.status(200).json({
+        success: true,
+        message: "Quotation request received (Mock Mode - No email sent)",
+        timestamp: new Date().toISOString(),
+        mode: "mock",
+        debug: {
+          hasResendKey: false,
+          envKeys: Object.keys(process.env).filter(
+            (k) => k.includes("RESEND") || k.includes("VERCEL")
+          ),
+        },
+      });
+    }
 
-    const resend = new Resend(process.env.RESEND_API_KEY);
+    console.log("Resend API key found, attempting to send email...");
 
-    const formattedDate = new Date().toLocaleString("en-US", {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
+    try {
+      const resend = new Resend(process.env.RESEND_API_KEY);
 
-    const adminEmail = await resend.emails.send({
-      from: "CenDev Quotations <onboarding@resend.dev>",
-      to: ["malozdev@gmail.com"],
-      replyTo: email,
-      subject: `📋 New Quotation: ${name} - ${projectType}`,
-      html: `
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <style>
-            body { font-family: Arial, sans-serif; background: #f8fafc; padding: 20px; }
-            .container { max-width: 600px; margin: 0 auto; background: white; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); overflow: hidden; }
-            .header { background: linear-gradient(135deg, #0ea5e9 0%, #10b981 100%); color: white; padding: 30px; text-align: center; }
-            .content { padding: 30px; }
-            .field { margin-bottom: 15px; padding: 12px; background: #f9fafb; border-radius: 8px; }
-            .field-label { font-weight: 600; color: #374151; margin-bottom: 4px; }
-            .field-value { color: #111827; }
-            .message-box { background: #f1f5f9; padding: 15px; border-radius: 8px; border-left: 4px solid #0ea5e9; white-space: pre-wrap; }
-            .footer { background: #f8fafc; padding: 20px; text-align: center; color: #64748b; font-size: 12px; border-top: 1px solid #e2e8f0; }
-          </style>
-        </head>
-        <body>
-          <div class="container">
-            <div class="header">
-              <h1> New Quotation Request</h1>
-              <p>From: ${name}</p>
-            </div>
-            <div class="content">
-              <div class="field">
-                <div class="field-label">Full Name</div>
-                <div class="field-value">${name}</div>
-              </div>
-              <div class="field">
-                <div class="field-label">Email</div>
-                <div class="field-value">
-                  <a href="mailto:${email}" style="color: #0ea5e9;">${email}</a>
-                </div>
-              </div>
-              <div class="field">
-                <div class="field-label">Phone</div>
-                <div class="field-value">${phone}</div>
-              </div>
-              <div class="field">
-                <div class="field-label">Company</div>
-                <div class="field-value">${company || "N/A"}</div>
-              </div>
-              <div class="field">
-                <div class="field-label">Project Type</div>
-                <div class="field-value">
-                  <span style="background: #dbeafe; color: #1e40af; padding: 4px 12px; border-radius: 20px; font-size: 14px;">
-                    ${projectType}
-                  </span>
-                </div>
-              </div>
-              <div class="field">
-                <div class="field-label">Budget Range</div>
-                <div class="field-value">
-                  <span style="background: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 20px; font-size: 14px;">
-                    ${budget}
-                  </span>
-                </div>
-              </div>
-              <div class="field">
-                <div class="field-label">Project Description</div>
-                <div class="message-box">${message}</div>
-              </div>
-              <div class="field">
-                <div class="field-label">Submitted On</div>
-                <div class="field-value">${formattedDate}</div>
-              </div>
-            </div>
-            <div class="footer">
-              <p>© ${new Date().getFullYear()} CenDev Innovations</p>
-              <p>This quotation request was submitted via the website form</p>
-            </div>
-          </div>
-        </body>
-        </html>
-      `,
-    });
+      const formattedDate = new Date().toLocaleString();
 
-    console.log("✅ Email sent to admin");
+      const emailResult = await resend.emails.send({
+        from: "CenDev Quotations <onboarding@resend.dev>",
+        to: ["malozdev@gmail.com"],
+        replyTo: email,
+        subject: `📋 New Quote: ${name}`,
+        text: `
+          New Quotation Request:
+          Name: ${name}
+          Email: ${email}
+          Phone: ${phone}
+          Company: ${company || "N/A"}
+          Project: ${projectType}
+          Budget: ${budget}
+          Message: ${message}
+          Submitted: ${formattedDate}
+        `,
+      });
 
-    return res.status(200).json({
-      success: true,
-      message: "Quotation request submitted successfully!",
-      emailSent: true,
-      timestamp: new Date().toISOString(),
-    });
+      console.log("Email sent successfully:", emailResult);
+
+      return res.status(200).json({
+        success: true,
+        message: "Quotation request submitted successfully!",
+        emailSent: true,
+        timestamp: new Date().toISOString(),
+      });
+    } catch (emailError) {
+      console.error("Resend API error:", emailError);
+      return res.status(500).json({
+        success: false,
+        error: "Failed to send email via Resend",
+        message: emailError.message,
+        type: "resend_error",
+      });
+    }
   } catch (error) {
-    console.error("❌ Email error:", error);
+    console.error("=== UNEXPECTED ERROR ===", error);
     return res.status(500).json({
       success: false,
-      error: "Failed to send email",
+      error: "Internal server error",
       message: error.message,
+      stack: process.env.NODE_ENV === "production" ? undefined : error.stack,
     });
   }
 };
