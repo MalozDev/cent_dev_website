@@ -55,19 +55,39 @@ const ProjectCard = ({
             : "bg-white/80 border border-gray-200"
         }`}
       >
-        {/* Project Image Placeholder */}
-        <div
-          className={`h-40 sm:h-48 relative overflow-hidden transition-colors duration-300 ${
-            theme === "dark"
-              ? "bg-linear-to-br from-emerald-500/10 to-teal-500/10"
-              : "bg-linear-to-br from-orange-500/10 to-orange-400/10"
-          }`}
-        >
+        {/* Project Image with fallback */}
+        <div className="h-40 sm:h-48 relative overflow-hidden">
+          {/* Actual Image */}
+          <img
+            src={project.image}
+            alt={project.title}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            onError={(e) => {
+              e.currentTarget.style.display = "none";
+              const fallbackDiv = e.currentTarget
+                .closest(".relative")
+                ?.querySelector(".image-fallback");
+              if (fallbackDiv) {
+                (fallbackDiv as HTMLDivElement).style.display = "block";
+              }
+            }}
+          />
+
+          {/* Fallback gradient background (shows if image fails to load) */}
           <div
-            className={`absolute inset-0 transition-colors duration-300 ${
-              theme === "dark" ? "bg-gray-800/50" : "bg-gray-200/50"
+            className={`image-fallback absolute inset-0 hidden transition-colors duration-300 ${
+              theme === "dark"
+                ? "bg-gradient-to-br from-emerald-500/10 to-teal-500/10"
+                : "bg-gradient-to-br from-orange-500/10 to-orange-400/10"
             }`}
-          ></div>
+          >
+            <div
+              className={`absolute inset-0 transition-colors duration-300 ${
+                theme === "dark" ? "bg-gray-800/50" : "bg-gray-200/50"
+              }`}
+            ></div>
+          </div>
+
           {/* Category Badge */}
           <div
             className={`absolute top-3 left-3 px-3 py-1 backdrop-blur-sm rounded-full transition-colors duration-300 ${
@@ -78,6 +98,7 @@ const ProjectCard = ({
               {project.category}
             </span>
           </div>
+
           {/* Year Badge */}
           <div
             className={`absolute top-3 right-3 px-2 py-1 backdrop-blur-sm rounded-full border transition-colors duration-300 ${

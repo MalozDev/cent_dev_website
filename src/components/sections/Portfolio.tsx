@@ -185,7 +185,29 @@ const Portfolio = ({ initialCategory = "All" }: PortfolioProps) => {
                           theme === "dark" ? "bg-gray-800" : "bg-gray-200"
                         }`}
                       >
-                        <div className="absolute inset-0 flex items-center justify-center">
+                        {/* Actual Image - showing if it exists */}
+                        {project.image &&
+                        project.image.startsWith("/projects/") ? (
+                          <img
+                            src={project.image}
+                            alt={project.title}
+                            className="absolute inset-0 w-full h-full object-cover"
+                            onError={(e) => {
+                              // If image fails to load, show placeholder
+                              e.currentTarget.style.display = "none";
+                              const placeholder =
+                                e.currentTarget.parentElement?.querySelector(
+                                  ".image-placeholder"
+                                );
+                              if (placeholder) {
+                                placeholder.classList.remove("hidden");
+                              }
+                            }}
+                          />
+                        ) : null}
+
+                        {/* Fallback placeholder - shown when image fails to load */}
+                        <div className="image-placeholder hidden absolute inset-0 flex items-center justify-center">
                           <ImageIcon
                             className={`w-16 h-16 transition-colors duration-300 ${
                               theme === "dark"
@@ -194,17 +216,18 @@ const Portfolio = ({ initialCategory = "All" }: PortfolioProps) => {
                             }`}
                           />
                         </div>
-                        {/* Placeholder for actual image */}
+
+                        {/* Gradient overlay */}
                         <div
                           className={`absolute inset-0 transition-colors duration-300 ${
                             theme === "dark"
-                              ? "bg-linear-to-br from-emerald-500/5 to-teal-500/5"
-                              : "bg-linear-to-br from-orange-500/5 to-orange-400/5"
+                              ? "bg-linear-to-t from-gray-900/80 via-gray-900/20 to-transparent"
+                              : "bg-linear-to-t from-white/80 via-white/20 to-transparent"
                           }`}
                         ></div>
 
                         {/* Status Badge */}
-                        <div className="absolute top-4 right-4 flex items-center space-x-1 px-3 py-1.5 bg-green-500/90 backdrop-blur-sm rounded-full">
+                        <div className="absolute top-4 right-4 flex items-center space-x-1 px-3 py-1.5 bg-green-500/90 backdrop-blur-sm rounded-full z-10">
                           <CheckCircle className="w-3 h-3 text-white" />
                           <span className="text-white text-xs font-bold">
                             {project.status}
@@ -213,7 +236,7 @@ const Portfolio = ({ initialCategory = "All" }: PortfolioProps) => {
 
                         {/* Year Badge */}
                         <div
-                          className={`absolute top-4 left-4 flex items-center space-x-1 px-3 py-1.5 backdrop-blur-sm rounded-full border transition-colors duration-300 ${
+                          className={`absolute top-4 left-4 flex items-center space-x-1 px-3 py-1.5 backdrop-blur-sm rounded-full border transition-colors duration-300 z-10 ${
                             theme === "dark"
                               ? "bg-gray-900/90 border-emerald-500/30"
                               : "bg-white/90 border-orange-500/30"

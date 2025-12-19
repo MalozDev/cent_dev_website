@@ -186,7 +186,7 @@ export const FAQS = [
     a: "We combine local expertise with international standards, offering innovative AI-driven solutions, personalized service, and a commitment to building long-term partnerships.",
   },
 ];
-
+// Update just the PROJECTS array in your constants file
 export const PROJECTS = [
   {
     category: "Software Development",
@@ -196,29 +196,27 @@ export const PROJECTS = [
         description:
           "Comprehensive dispatch and operations management platform for aviation companies with real-time tracking and reporting.",
         technologies: ["React", "Django", "PostgreSQL", "AWS"],
-        status: "Completed",
-        image: "/projects/stephan.jpeg",
-        year: "2024",
+        status: "",
+        image: "/projects/aviation-dispatch.jpeg", // Your local image
+        year: "2025",
       },
       {
         title: "School Management System",
         description:
           "All-in-one educational platform managing students, teachers, grades, attendance, and parent communication.",
         technologies: ["Next.js", "Node.js", "MongoDB", "Firebase"],
-        status: "Completed",
-        image:
-          "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=600&fit=crop",
-        year: "2024",
+        status: "",
+        image: "/projects/school-management.jpg", // Your local image
+        year: "2025",
       },
       {
         title: "Hospital Management System",
         description:
           "Patient records, appointment scheduling, billing, and inventory management for healthcare facilities.",
         technologies: ["React", "Django", "PostgreSQL", "Docker"],
-        status: "Completed",
-        image:
-          "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&h=600&fit=crop",
-        year: "2023",
+        status: "",
+        image: "/projects/hospital-management.webp", // Your local image
+        year: "2025",
       },
     ],
   },
@@ -230,20 +228,18 @@ export const PROJECTS = [
         description:
           "Full-featured shopping app with cart, payments, order tracking, and push notifications.",
         technologies: ["Flutter", "Firebase", "Stripe", "FCM"],
-        status: "Completed",
-        image:
-          "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&h=600&fit=crop",
-        year: "2024",
+        status: "",
+        image: "/projects/ecommerce-app.jpg", // Your local image
+        year: "2025",
       },
       {
         title: "Fitness Tracking App",
         description:
           "Personal fitness companion with workout plans, calorie tracking, and progress analytics.",
         technologies: ["React Native", "Node.js", "MongoDB"],
-        status: "Completed",
-        image:
-          "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=600&fit=crop",
-        year: "2024",
+        status: "",
+        image: "/projects/fitness-app.webp", // Your local image
+        year: "2025",
       },
     ],
   },
@@ -255,20 +251,18 @@ export const PROJECTS = [
         description:
           "Complete branding suite including logo, business cards, letterheads, and brand guidelines for 10+ businesses.",
         technologies: ["Adobe Illustrator", "Photoshop", "Figma"],
-        status: "Completed",
-        image:
-          "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=600&fit=crop",
-        year: "2024",
+        status: "",
+        image: "/projects/brand-identity.png", // Your local image
+        year: "2025",
       },
       {
         title: "Marketing Campaign Materials",
         description:
           "Social media graphics, banners, flyers, and digital ads for various marketing campaigns.",
         technologies: ["Canva", "Adobe Creative Suite"],
-        status: "Completed",
-        image:
-          "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&h=600&fit=crop",
-        year: "2024",
+        status: "",
+        image: "/projects/marketing-materials.jpg", // Your local image
+        year: "2025",
       },
     ],
   },
@@ -280,20 +274,18 @@ export const PROJECTS = [
         description:
           "Migrated legacy systems to AWS cloud infrastructure with 99.9% uptime and improved performance.",
         technologies: ["AWS", "Docker", "Kubernetes", "Terraform"],
-        status: "Completed",
-        image:
-          "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=600&fit=crop",
-        year: "2024",
+        status: "",
+        image: "/projects/cloud-migration.jpeg", // Your local image
+        year: "2025",
       },
       {
         title: "Network Security Implementation",
         description:
           "Deployed enterprise-grade firewall, VPN, and security monitoring systems for corporate clients.",
         technologies: ["pfSense", "OpenVPN", "Zabbix"],
-        status: "Completed",
-        image:
-          "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=600&fit=crop",
-        year: "2023",
+        status: "",
+        image: "/projects/network-security.png", // Your local image
+        year: "2025",
       },
     ],
   },
@@ -305,20 +297,18 @@ export const PROJECTS = [
         description:
           "Point-of-sale system with inventory management, sales tracking, and customer loyalty programs.",
         technologies: ["React", "Django", "PostgreSQL", "Thermal Printing"],
-        status: "Completed",
-        image:
-          "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop",
-        year: "2024",
+        status: "",
+        image: "/projects/pos-system.jpg", // Your local image
+        year: "2025",
       },
       {
         title: "Inventory Management System",
         description:
           "Real-time stock tracking, automated reordering, and supplier management for retail chains.",
         technologies: ["Vue.js", "Laravel", "MySQL"],
-        status: "Completed",
-        image:
-          "https://images.unsplash.com/photo-1553413077-190dd305871c?w=800&h=600&fit=crop",
-        year: "2023",
+        status: "",
+        image: "/projects/inventory-management.webp", // Your local image
+        year: "2025",
       },
     ],
   },
@@ -330,20 +320,18 @@ export const PROJECTS = [
         description:
           "Complete garage management solution with job cards, parts inventory, customer management, and invoicing.",
         technologies: ["React", "Node.js", "PostgreSQL", "PDF Generation"],
-        status: "Completed",
-        image:
-          "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=800&h=600&fit=crop",
-        year: "2024",
+        status: "",
+        image: "/projects/autosuite.webp", // Your local image
+        year: "2025",
       },
       {
         title: "Vehicle Service History Tracker",
         description:
           "Digital service records and maintenance scheduling for fleet management companies.",
         technologies: ["Flutter", "Firebase", "Push Notifications"],
-        status: "Completed",
-        image:
-          "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&h=600&fit=crop",
-        year: "2024",
+        status: "",
+        image: "/projects/vehicle-tracker.webp", // Your local image
+        year: "2025",
       },
     ],
   },
@@ -355,20 +343,18 @@ export const PROJECTS = [
         description:
           "Real-time analytics dashboard with KPI tracking, sales forecasting, and custom reports.",
         technologies: ["React", "Python", "Power BI", "SQL"],
-        status: "Completed",
-        image:
-          "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
-        year: "2024",
+        status: "",
+        image: "/projects/bi-dashboard.jpg", // Your local image
+        year: "2025",
       },
       {
         title: "Customer Behavior Analytics",
         description:
           "ML-powered analytics platform for understanding customer patterns and improving retention.",
         technologies: ["Python", "TensorFlow", "PostgreSQL", "Tableau"],
-        status: "Completed",
-        image:
-          "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
-        year: "2023",
+        status: "",
+        image: "/projects/customer-analytics.jpg", // Your local image
+        year: "2025",
       },
     ],
   },
@@ -380,20 +366,18 @@ export const PROJECTS = [
         description:
           "Automated invoice generation, sending, and payment tracking with AI-powered data extraction.",
         technologies: ["Python", "OCR", "Django", "Celery"],
-        status: "Completed",
-        image:
-          "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&h=600&fit=crop",
-        year: "2024",
+        status: "",
+        image: "/projects/invoice-automation.webp", // Your local image
+        year: "2025",
       },
       {
         title: "Social Media Management Bot",
         description:
           "Automated content posting, engagement tracking, and analytics for multiple social platforms.",
         technologies: ["Python", "APIs", "MongoDB", "Cron Jobs"],
-        status: "Completed",
-        image:
-          "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&h=600&fit=crop",
-        year: "2024",
+        status: "",
+        image: "/projects/social-media-bot.jpg", // Your local image
+        year: "2025",
       },
     ],
   },
