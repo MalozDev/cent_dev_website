@@ -125,7 +125,8 @@ const Header = ({ scrollToSection, handleWhatsAppClick }: HeaderProps) => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex md:justify-between justify-center items-center h-16 sm:h-20 relative">
+        <div className="flex justify-between items-center h-16 sm:h-20 relative">
+          {/* Logo container - changed from justify-center to justify-between */}
           <div
             className="flex items-center space-x-2 sm:space-x-3 group cursor-pointer"
             onClick={() => navigate("/")}
@@ -191,6 +192,7 @@ const Header = ({ scrollToSection, handleWhatsAppClick }: HeaderProps) => {
             </div>
           </div>
 
+          {/* Desktop navigation - hidden on mobile */}
           <div className="hidden md:flex items-center space-x-1">
             {["Home", "About", "Services", "Portfolio", "Contact"].map(
               (item) => (
@@ -242,25 +244,24 @@ const Header = ({ scrollToSection, handleWhatsAppClick }: HeaderProps) => {
             </button>
           </div>
 
-          {!isMenuOpen && (
-            <div className="md:hidden absolute right-0 flex items-center space-x-2">
-              <ThemeToggle />
-              <button
-                onClick={() => setIsMenuOpen(true)}
-                className={`p-2 sm:p-3 rounded-lg sm:rounded-xl transition-all duration-300 ${
-                  theme === "dark"
-                    ? "bg-emerald-500/10 hover:bg-emerald-500/20"
-                    : "bg-orange-500/10 hover:bg-orange-500/20"
+          {/* Mobile menu button - always visible on mobile */}
+          <div className="md:hidden flex items-center space-x-2">
+            <ThemeToggle />
+            <button
+              onClick={() => setIsMenuOpen(true)}
+              className={`p-2 sm:p-3 rounded-lg sm:rounded-xl transition-all duration-300 ${
+                theme === "dark"
+                  ? "bg-emerald-500/10 hover:bg-emerald-500/20"
+                  : "bg-orange-500/10 hover:bg-orange-500/20"
+              }`}
+            >
+              <Menu
+                className={`w-5 h-5 sm:w-6 sm:h-6 ${
+                  theme === "dark" ? "text-emerald-400" : "text-orange-500"
                 }`}
-              >
-                <Menu
-                  className={`w-5 h-5 sm:w-6 sm:h-6 ${
-                    theme === "dark" ? "text-emerald-400" : "text-orange-500"
-                  }`}
-                />
-              </button>
-            </div>
-          )}
+              />
+            </button>
+          </div>
         </div>
       </div>
 

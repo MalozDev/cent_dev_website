@@ -18,15 +18,15 @@ const TeamCard = ({
   const getImageStyle = (name: string) => {
     switch (name) {
       case "David Japhet":
-        return "object-[center_10%]";
+        return "object-[center_6%]";
       case "Niza Khunga":
-        return "object-[center_20%]";
+        return "object-[center_15%]";
       case "Stanley Kalenga":
         return "object-[center_15%]";
       case "Stephan Malobeka":
-        return "object-[center_65%]";
+        return "object-[center_55%]";
       case "Mubanga Bowa":
-        return "object-[center_65%]";
+        return "object-[center_55%]";
       case "Nchimunya Sichilima":
         return "object-[center_40%]";
       default:

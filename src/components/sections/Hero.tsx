@@ -211,7 +211,7 @@ const Hero = () => {
                 : "bg-linear-to-r from-orange-500 to-orange-600 shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 text-white"
             }`}
           >
-            <span>Get Quotation</span>
+            <span>Get Free Quotation</span>
             <Rocket className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
           <button
