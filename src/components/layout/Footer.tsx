@@ -5,21 +5,27 @@ import { useTheme } from "../../contexts/ThemeContext";
 const Footer = () => {
   const { theme } = useTheme();
   return (
-    <footer className={`border-t py-8 sm:py-10 lg:py-12 px-4 sm:px-6 lg:px-8 mt-12 sm:mt-16 lg:mt-20 transition-colors duration-300 ${
-      theme === "dark" ? "border-gray-800" : "border-gray-300"
-    }`}>
+    <footer
+      className={`border-t py-8 sm:py-10 lg:py-12 px-4 sm:px-6 lg:px-8 mt-12 sm:mt-16 lg:mt-20 transition-colors duration-300 ${
+        theme === "dark" ? "border-gray-800" : "border-gray-300"
+      }`}
+    >
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-center space-y-4 sm:space-y-6 md:space-y-0 gap-4">
           <div className="flex items-center space-x-3">
             <div className="relative">
-              <div className={`absolute inset-0 rounded-lg sm:rounded-xl blur-md animate-pulse ${
-                theme === "dark" ? "bg-emerald-400/30" : "bg-orange-400/30"
-              }`}></div>
-              <div className={`relative w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl flex items-center justify-center p-1.5 sm:p-2 transition-colors duration-300 ${
-                theme === "dark"
-                  ? "bg-gray-950 border border-emerald-400/30"
-                  : "bg-white border border-orange-400/30"
-              }`}>
+              <div
+                className={`absolute inset-0 rounded-lg sm:rounded-xl blur-md animate-pulse ${
+                  theme === "dark" ? "bg-emerald-400/30" : "bg-orange-400/30"
+                }`}
+              ></div>
+              <div
+                className={`relative w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl flex items-center justify-center p-1.5 sm:p-2 transition-colors duration-300 ${
+                  theme === "dark"
+                    ? "bg-gray-950 border border-emerald-400/30"
+                    : "bg-white border border-orange-400/30"
+                }`}
+              >
                 <BrainCircuit
                   className={`w-full h-full transition-colors duration-300 ${
                     theme === "dark"
@@ -31,10 +37,14 @@ const Footer = () => {
               </div>
             </div>
             <div>
-              <div className="font-bold text-base sm:text-lg">CENDEV</div>
-              <div className={`text-xs transition-colors duration-300 ${
-                theme === "dark" ? "text-gray-500" : "text-gray-600"
-              }`}>
+              <div className="font-bold text-base sm:text-lg">
+                CENDEV INNOVATIONS
+              </div>
+              <div
+                className={`text-xs transition-colors duration-300 ${
+                  theme === "dark" ? "text-gray-500" : "text-gray-600"
+                }`}
+              >
                 © 2025 All rights reserved
               </div>
             </div>
@@ -66,11 +76,13 @@ const Footer = () => {
                     : "bg-gray-100 hover:bg-orange-500/20"
                 }`}
               >
-                <item.icon className={`w-4 h-4 sm:w-5 sm:h-5 transition-colors duration-300 ${
-                  theme === "dark"
-                    ? "text-gray-400 group-hover:text-emerald-400"
-                    : "text-gray-600 group-hover:text-orange-500"
-                }`} />
+                <item.icon
+                  className={`w-4 h-4 sm:w-5 sm:h-5 transition-colors duration-300 ${
+                    theme === "dark"
+                      ? "text-gray-400 group-hover:text-emerald-400"
+                      : "text-gray-600 group-hover:text-orange-500"
+                  }`}
+                />
               </a>
             ))}
           </div>

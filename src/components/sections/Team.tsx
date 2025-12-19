@@ -14,6 +14,26 @@ const TeamCard = ({
   const { theme } = useTheme();
   const { cardRef, mousePosition, isHovered } = useMouseGlow();
 
+  // Function to get specific image positioning based on team member name
+  const getImageStyle = (name: string) => {
+    switch (name) {
+      case "David Japhet":
+        return "object-[center_10%]";
+      case "Niza Khunga":
+        return "object-[center_20%]";
+      case "Stanley Kalenga":
+        return "object-[center_15%]";
+      case "Stephan Malobeka":
+        return "object-[center_65%]";
+      case "Mubanga Bowa":
+        return "object-[center_65%]";
+      case "Nchimunya Sichilima":
+        return "object-[center_40%]";
+      default:
+        return "object-[center_35%]";
+    }
+  };
+
   return (
     <motion.div
       ref={cardRef}
@@ -51,25 +71,27 @@ const TeamCard = ({
         <div
           className={`relative h-56 sm:h-64 lg:h-72 bg-linear-to-br ${member.color} flex items-center justify-center overflow-hidden`}
         >
-          {/* Image */}
+          {/* Image with custom positioning */}
           <img
             src={`${import.meta.env.BASE_URL}${member.image.replace(
               /^\//,
               ""
             )}`}
             alt={member.name}
-            className="absolute inset-0 w-full h-full object-cover object-[80%_35%] group-hover:scale-110 transition-transform duration-500"
+            className={`absolute inset-0 w-full h-full object-cover ${getImageStyle(
+              member.name
+            )} group-hover:scale-110 transition-transform duration-500`}
             onError={(e) => {
               e.currentTarget.style.display = "none";
               const placeholder = e.currentTarget.nextElementSibling;
               if (placeholder) {
                 placeholder.classList.remove("hidden");
-                placeholder.classList.add("flex"); // Correctly switch to flex on error
+                placeholder.classList.add("flex");
               }
             }}
           />
 
-          {/* Fallback placeholder - Fixed the hidden/flex conflict */}
+          {/* Fallback placeholder */}
           <div className="hidden absolute inset-0 items-center justify-center">
             <div className="w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border-4 border-white/20 group-hover:scale-110 transition-transform">
               <Users className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 text-white" />

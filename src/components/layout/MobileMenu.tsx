@@ -88,19 +88,29 @@ const MobileMenu = ({
         >
           <div className="flex flex-col h-full">
             {/* Menu Header - Compact */}
-            <div className={`flex justify-between items-center h-14 sm:h-16 px-4 sm:px-6 border-b flex-shrink-0 transition-colors duration-300 ${
-              theme === "dark" ? "border-emerald-500/10" : "border-orange-500/20"
-            }`}>
+            <div
+              className={`flex justify-between items-center h-14 sm:h-16 px-4 sm:px-6 border-b shrink-0 transition-colors duration-300 ${
+                theme === "dark"
+                  ? "border-emerald-500/10"
+                  : "border-orange-500/20"
+              }`}
+            >
               <div className="flex items-center space-x-2">
                 <div className="relative">
-                  <div className={`absolute inset-0 rounded-lg blur-sm animate-pulse transition-colors duration-300 ${
-                    theme === "dark" ? "bg-emerald-400/40" : "bg-orange-400/40"
-                  }`}></div>
-                  <div className={`relative w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center p-1.5 sm:p-2 transition-colors duration-300 ${
-                    theme === "dark"
-                      ? "bg-gray-950 border border-emerald-400/30"
-                      : "bg-white border border-orange-400/30"
-                  }`}>
+                  <div
+                    className={`absolute inset-0 rounded-lg blur-sm animate-pulse transition-colors duration-300 ${
+                      theme === "dark"
+                        ? "bg-emerald-400/40"
+                        : "bg-orange-400/40"
+                    }`}
+                  ></div>
+                  <div
+                    className={`relative w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center p-1.5 sm:p-2 transition-colors duration-300 ${
+                      theme === "dark"
+                        ? "bg-gray-950 border border-emerald-400/30"
+                        : "bg-white border border-orange-400/30"
+                    }`}
+                  >
                     <BrainCircuit
                       className={`w-full h-full transition-colors duration-300 ${
                         theme === "dark"
@@ -111,11 +121,13 @@ const MobileMenu = ({
                     />
                   </div>
                 </div>
-                <span className={`text-lg sm:text-xl font-black bg-clip-text text-transparent transition-colors duration-300 ${
-                  theme === "dark"
-                    ? "bg-gradient-to-r from-emerald-400 to-teal-400"
-                    : "bg-gradient-to-r from-orange-500 to-orange-600"
-                }`}>
+                <span
+                  className={`text-lg sm:text-xl font-black bg-clip-text text-transparent transition-colors duration-300 ${
+                    theme === "dark"
+                      ? "bg-linear-to-r from-emerald-400 to-teal-400"
+                      : "bg-linear-to-r from-orange-500 to-orange-600"
+                  }`}
+                >
                   CENDEV
                 </span>
               </div>
@@ -138,18 +150,18 @@ const MobileMenu = ({
                     className={`w-5 h-5 sm:w-6 sm:h-6 transition-colors duration-300 ${
                       theme === "dark" ? "text-emerald-400" : "text-orange-500"
                     }`}
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </motion.svg>
-              </motion.button>
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </motion.svg>
+                </motion.button>
               </div>
             </div>
 
@@ -171,22 +183,30 @@ const MobileMenu = ({
                             ? "text-emerald-400 bg-emerald-500/10"
                             : "text-orange-500 bg-orange-500/10"
                           : theme === "dark"
-                            ? "text-gray-400 hover:text-emerald-400 hover:bg-emerald-500/5"
-                            : "text-gray-600 hover:text-orange-500 hover:bg-orange-500/5"
+                          ? "text-gray-400 hover:text-emerald-400 hover:bg-emerald-500/5"
+                          : "text-gray-600 hover:text-orange-500 hover:bg-orange-500/5"
                       }`}
                     >
                       <span className="relative z-10 flex items-center">
                         {item}
                         {isActive(item) && (
-                          <span className={`ml-2 w-1.5 h-1.5 rounded-full transition-colors duration-300 ${
-                            theme === "dark" ? "bg-emerald-400" : "bg-orange-500"
-                          }`}></span>
+                          <span
+                            className={`ml-2 w-1.5 h-1.5 rounded-full transition-colors duration-300 ${
+                              theme === "dark"
+                                ? "bg-emerald-400"
+                                : "bg-orange-500"
+                            }`}
+                          ></span>
                         )}
                       </span>
                       {!isActive(item) && (
-                        <ChevronRight className={`absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all ${
-                          theme === "dark" ? "text-emerald-400" : "text-orange-500"
-                        }`} />
+                        <ChevronRight
+                          className={`absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all ${
+                            theme === "dark"
+                              ? "text-emerald-400"
+                              : "text-orange-500"
+                          }`}
+                        />
                       )}
                     </motion.button>
                   )
@@ -224,15 +244,17 @@ const MobileMenu = ({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3, delay: 0.3 }}
-              className={`px-4 sm:px-6 py-4 sm:py-5 border-t flex-shrink-0 transition-colors duration-300 ${
+              className={`px-4 sm:px-6 py-4 sm:py-5 border-t shrink-0 transition-colors duration-300 ${
                 theme === "dark"
                   ? "border-emerald-500/10 bg-gray-950/50"
                   : "border-orange-500/20 bg-white/50"
               }`}
             >
-              <p className={`text-xs sm:text-sm mb-3 font-medium transition-colors duration-300 ${
-                theme === "dark" ? "text-gray-400" : "text-gray-600"
-              }`}>
+              <p
+                className={`text-xs sm:text-sm mb-3 font-medium transition-colors duration-300 ${
+                  theme === "dark" ? "text-gray-400" : "text-gray-600"
+                }`}
+              >
                 Connect With Us
               </p>
               <div className="flex items-center gap-3 sm:gap-4">
@@ -262,17 +284,21 @@ const MobileMenu = ({
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={item.label}
-                    className={`flex-1 h-11 sm:h-12 rounded-lg border flex items-center justify-center transition-all duration-300 group ${item.color} ${
+                    className={`flex-1 h-11 sm:h-12 rounded-lg border flex items-center justify-center transition-all duration-300 group ${
+                      item.color
+                    } ${
                       theme === "dark"
                         ? "border-gray-800 bg-gray-900/50"
                         : "border-gray-200 bg-gray-100/50"
                     }`}
                   >
-                    <item.icon className={`w-4 h-4 sm:w-5 sm:h-5 transition-colors duration-300 ${
-                      theme === "dark"
-                        ? "text-gray-400 group-hover:text-emerald-400"
-                        : "text-gray-600 group-hover:text-orange-500"
-                    }`} />
+                    <item.icon
+                      className={`w-4 h-4 sm:w-5 sm:h-5 transition-colors duration-300 ${
+                        theme === "dark"
+                          ? "text-gray-400 group-hover:text-emerald-400"
+                          : "text-gray-600 group-hover:text-orange-500"
+                      }`}
+                    />
                   </a>
                 ))}
               </div>

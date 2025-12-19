@@ -10,9 +10,9 @@ import {
 } from "lucide-react";
 
 export const COMPANY_INFO = {
-  name: "Centurion Developers",
+  name: "CenDev Innovations",
   shortName: "CenDev",
-  email: "developerscenturion@gmail.com",
+  email: "cendevinnovations@gmail.com",
   phone: "+260975623742",
   phoneDisplay: "+260 975 623 742",
   location: "Lusaka, Zambia",
@@ -119,7 +119,7 @@ export const TEAM_MEMBERS = [
     github: "https://github.com/malozdev",
   },
   {
-    name: "Nchimunya Schilima",
+    name: "Nchimunya Sichilima",
     role: "Graphics Designer",
     color: "from-green-500 via-emerald-500 to-cyan-500",
     image: "/team/nchimunya.jpeg",
@@ -197,8 +197,7 @@ export const PROJECTS = [
           "Comprehensive dispatch and operations management platform for aviation companies with real-time tracking and reporting.",
         technologies: ["React", "Django", "PostgreSQL", "AWS"],
         status: "Completed",
-        image:
-          "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&h=600&fit=crop",
+        image: "/projects/stephan.jpeg",
         year: "2024",
       },
       {
