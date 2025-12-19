@@ -77,8 +77,8 @@ const ProjectCard = ({
           <div
             className={`image-fallback absolute inset-0 hidden transition-colors duration-300 ${
               theme === "dark"
-                ? "bg-gradient-to-br from-emerald-500/10 to-teal-500/10"
-                : "bg-gradient-to-br from-orange-500/10 to-orange-400/10"
+                ? "bg-linear-to-br from-emerald-500/10 to-teal-500/10"
+                : "bg-linear-to-br from-orange-500/10 to-orange-400/10"
             }`}
           >
             <div
